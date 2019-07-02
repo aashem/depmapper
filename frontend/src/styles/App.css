@@ -1,0 +1,38 @@
+* .App{
+  padding: 5%;
+  border: solid;
+  border-radius: 20px;
+}
+
+.Panel{
+ display:block;
+ width: auto;
+ height: auto;
+ border: solid;
+ border-color: black;
+ background-color: rgb(218, 216, 216);
+}
+.Panel button{
+  -webkit-text-fill-color: white;
+  width: 25%;
+  font-size: 25px; 
+  border-radius: 10px;
+  background-image: linear-gradient(to right, rgb(46, 45, 45) 50%, rgb(86, 88, 86) );
+}
+
+
+
+.Cy{
+  display: block;
+  height: 50vmin;
+  border: dotted;
+  width: auto;
+  border-radius: 20px;
+  
+}
+
+.Lists{
+  display: flex;
+
+}
+
