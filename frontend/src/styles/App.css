@@ -1,33 +1,58 @@
 * .App{
   padding: 5%;
-  border: solid;
-  border-radius: 20px;
+  background-color: rgb(1, 1, 192);
 }
+
+.Header{
+  margin: 20px;
+}
+.UpperButtons{
+  display: flex;
+  background-color: blue;
+}
+
+.UpperButtons button{
+  width:28%;
+  height: 5vmin;
+  margin:20px;
+  border: solid;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: rgb(255, 255, 255);
+}  
 
 .Panel{
- display:block;
+  background-color: blue;
+ display: flex;
+ align-content: center;
  width: auto;
- height: auto;
- border: solid;
- border-color: black;
- background-color: rgb(218, 216, 216);
+ height: 10vmin;
+ margin:20px;
+
 }
 .Panel button{
-  -webkit-text-fill-color: white;
-  width: 25%;
+  font-family: 'Courier New', Courier, monospace;
+  border: solid;
+  width: 32.4%;
+  margin: 5px;
   font-size: 25px; 
   border-radius: 10px;
-  background-image: linear-gradient(to right, rgb(46, 45, 45) 50%, rgb(86, 88, 86) );
+  background-image: rgb(216, 219, 216) ;
 }
 
+.Select{
+  width: 100%;
+  border: solid;
+  border-color: black;
+}
 
 
 .Cy{
   display: block;
-  height: 50vmin;
-  border: dotted;
+  margin: 20px;
+  background-color: white;
+  height: 60vmin;
+  border: solid;
   width: auto;
-  border-radius: 20px;
   
 }
 

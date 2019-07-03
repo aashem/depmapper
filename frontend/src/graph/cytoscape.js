@@ -14,8 +14,7 @@ const graph = (newCy) => {
         hideEdgesOnViewport: false,
         minZoom: 1e0,
         maxZoom: 1e1,
-        
-      
+            
         style: [ // the stylesheet for the graph
           {
             selector: 'node',
@@ -109,10 +108,10 @@ const graph = (newCy) => {
             if(selectedNodes.length === 2){
               let compareId = cy.edges().map(e => e.id())
               let edgeId = `${selectedNodes[0].id()}${selectedNodes[1].id()}`
-              if(compareId.includes(edgeId)){
+              if(compareId.includes("e" + edgeId)){
                 window.alert("Connection already exists")
               }else{
-                cy.add({group:"edges", data:{ id: selectedNodes[0].id()+selectedNodes[1].id(), source:selectedNodes[0].id(), target:selectedNodes[1].id(), name:"new" }})
+                cy.add({group:"edges", data:{ id: "e"+ selectedNodes[0].id()+selectedNodes[1].id(), source:selectedNodes[0].id(), target:selectedNodes[1].id(), name:"" }})
               }
               selectedNodes = []
           }
@@ -125,22 +124,20 @@ const graph = (newCy) => {
         window.alert("choose target")
         selectedNodes.push(selected)
         selected.unlock()
-        console.log(selected)
       } )
       cy.on('select', (event) => {
         let selected = event.target
         selected.animate({
           style:{backgroundColor: "blue"}
         })
+        setTimeout(() => {
+          selected.animate({
+            style:{backgroundColor: "black"}
+          })
+        }, 1000);
       
     })
-  
-    cy.on('unselect', (event) => {
-      let selected = event.target
-      selected.animate({
-        style:{backgroundColor:"black"}
-      })
-    })
+
     
   
       

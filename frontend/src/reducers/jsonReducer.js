@@ -7,7 +7,7 @@ const jsonReducer = (state = null, action) =>{
     case 'INIT':
         return action.data
     case 'POST':
-        return [...state, action.data]
+        return action.data
     case 'UPDATE':
         return action.data
     case 'INITID':

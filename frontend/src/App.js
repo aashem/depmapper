@@ -2,25 +2,13 @@ import React,{useEffect, useState} from 'react';
 import Select from 'react-select'
 import {connect} from 'react-redux'
 import {postJson, initializeJson, updateJson, initJsonId, removeGraphId} from './reducers/jsonReducer'
+import {initCy} from './reducers/cyReducer'
 import {initializeNodes} from './reducers/nodeReducer'
 import {initializeEdges} from './reducers/edgeReducer'
-import ListNodes from './components/ListNodes'
+import Header from './ui/header'
 import graph from './graph/cytoscape'
-import getNodeInfo from './components/getNodeInfo'
 import './styles/App.css'
-import getEdgeInfo from './components/getEdgeInfo';
-import ListEdges from './components/ListEdges'
 
-
-const Header = (currName) => {
-  let name = currName.currName
-  console.log(name)
-
-  return <div>DepMapper
-    <a href="https://github.com/aashem/depmap-secret.git"> Git</a>
-    <h2>Selected Graph : {name}</h2>
-  </div>
-}
 
 
 const App = (props) => {
@@ -29,16 +17,21 @@ const App = (props) => {
   const [start,setStart] = useState(true)
   const [graphNames, setGraphNames] = useState([])
   const [currName, setCurrName] = useState('')
-  let list = ["circle","square", "triangle", "star"]
-  let shapeList = list.map(s => s = {value:  s, label: s})
+
 
   useEffect(() => {
     //initialize cytoscape graph and set it to attribute cy
     setCy(graph())
   },[])
 
+  setTimeout(()=> {
+    updateGraphNames()
+  },1000)
+
   const updateGraphNames = () => {
-    setGraphNames(props.graph.map(j => j = {value: j.id, label : j.name}))
+    if(props.graph){
+      setGraphNames(props.graph.map(j => j = {value: j.id, label : j.name}))  
+    }
   }
 
     const startFunction = () => {
@@ -52,43 +45,13 @@ const App = (props) => {
     }
   if(start){
     //GET cytoscape json config from db and insert it into redux state.json
+    props.initCy(cy)
     props.initializeJson()
     startFunction()
 
   }
 
- 
-  
-
-  const initNodes = () => {
-    //set redux state.nodes to current nodes 
-    props.initializeNodes(getNodeInfo(cy))
-  }
-
-  const initEdges = () => {
-    props.initializeEdges(getEdgeInfo(cy))
-    
-  }
-
-  const graphStateHandlers = (cy) => {
-    //adds cytoscape eventListeners that synchronize state with graph
-    cy.on('add', () => {
-      if(!start){
-        initNodes()
-      }
-    })
-    cy.on('data', () => {
-      initNodes()
-      initEdges()
-  })
-  }
-
-  if(cy && start){
-    graphStateHandlers(cy)   
-  }
-
   const selectGraph = value => {
-    console.log(value)
     let newId = value.value
     setId(newId)
     let name = props.graph.filter(j => j.id === newId)
@@ -107,6 +70,7 @@ const App = (props) => {
     }else{
       props.postJson(graph)
     }
+   
   }
 
   const loadGraph = (newId) => {
@@ -122,6 +86,7 @@ const App = (props) => {
   }
 
   const addNode = (event) => {
+    cy.reset()
     event.preventDefault()
       const createId = () => {
         let id = cy.nodes().size()
@@ -131,7 +96,7 @@ const App = (props) => {
       let id = createId()
 
     cy.add({
-      data: { id: `${id}`, name: "new" },
+      data: { id: `${id}`, name: "" },
       position: {
         x:200,
         y:200,
@@ -144,6 +109,7 @@ const App = (props) => {
     setCurrName(newName)
     cy.destroy()
     setCy(graph(true))
+    
   }
 
   const deleteGraph = () => {
@@ -156,37 +122,43 @@ const App = (props) => {
       }
 
   }
+
+  const renameGraph = () => {
+    let name = window.prompt('Name: ')
+    let graph = {
+      json: cy.json(),
+      name: name,
+    }
+      props.removeGraphId(id)
+      props.postJson(graph)
+   
+  }
   return (
-  <div >
+  <div className = "Header" >
     <Header currName = {currName}></Header>
     <div className= "App">
-      <button onClick = {newGraph}>New Graph</button>
-      <button onClick = {deleteGraph}>Delete Graph</button>
+      <div className = "UpperButtons">
+        <button onClick = {newGraph} className = "UpperButton">New Graph</button>
+        <button onClick = {deleteGraph} className = "UpperButton">Delete Graph</button>
+        <button onClick = {renameGraph} className = "UpperButton">Rename Graph</button>
+      </div>
     <div className="Cy"id = 'cy' ></div>
-    <hr></hr>
-    <div className= "Panel">
       <form>
-        <Select
-        name = "graph"
-        onChange = {selectGraph}
-        options = {graphNames}
-        ></Select>
-        </form>
+          <Select 
+          className = "Select"
+          name = "graph"
+          onChange = {selectGraph}
+          options = {graphNames}
+          ></Select>
+      </form>
+      <div className= "Panel">
         <button onClick ={saveGraph}>save</button>
         <button onClick = {loadGraph}>load</button>
-      <div>
-        <p></p>
-        <form onSubmit = {addNode}>
-          <button type = "submit">Add Node</button>
-      </form>
+        <button onClick = {addNode}>Add Node</button>
+          <div className = "Lists">
     </div>
-    <p></p>
-    <div className = "Lists">
-      <ListNodes/>
-      <ListEdges/>
-    </div>
-    </div>
-    </div>
+      </div>
+          </div>
   </div>
   )
 
@@ -195,7 +167,7 @@ const App = (props) => {
 }
 const mapStateToProps = state => {
   return{
-    graph: state.json
+    graph: state.json,
   }
   
 }
@@ -204,10 +176,11 @@ const mapDispatchToProps = {
   initializeNodes,
   initializeEdges,
   initializeJson,
-    postJson,
-    updateJson,
-    initJsonId,
-    removeGraphId,
+  initCy,
+  postJson,
+  updateJson,
+  initJsonId,
+  removeGraphId,
 }
 
 export default connect(
