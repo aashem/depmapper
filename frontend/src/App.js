@@ -9,8 +9,9 @@ import graphHandlers from './graph/graphHandlers'
 import Header from './ui/header'
 import graph from './graph/cytoscape'
 import './styles/App.css'
-import ListNodes from './components/ListNodes'
-import ListEdges from './components/ListEdges'
+import ListNodes from './ui/ListNodes'
+import ListEdges from './ui/ListEdges'
+
 
 
 
@@ -107,6 +108,7 @@ const App = (props) => {
         y:200,
       },
     })
+    cy.resize()
   }
 
   const newGraph = () => {
@@ -149,7 +151,14 @@ const App = (props) => {
         <button onClick = {deleteGraph} className = "UpperButton">Delete Graph</button>
         <button onClick = {renameGraph} className = "UpperButton">Rename Graph</button>
       </div>
-    <div className="Cy"id = 'cy' ></div>
+      <div className = "Lists">
+    <div className="Cy"id = 'cy'>
+      <div className = "Info">
+      </div>
+    </div>
+            <ListNodes/>  
+         {/*<ListEdges/>*/}
+            </div>
     <h3 className = "GraphName">Graph: {currName}</h3>
       <form>
           <Select 
@@ -163,10 +172,7 @@ const App = (props) => {
         <button onClick ={saveGraph}>save</button>
         <button onClick = {loadGraph}>load</button>
         <button onClick = {addNode}>Add Node</button>
-            <div className = "Lists">
-            <ListNodes/>  
-            <ListEdges/>
-            </div>
+      
       </div>      
     </div>
   </div>

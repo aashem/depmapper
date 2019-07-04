@@ -47,18 +47,29 @@
 
 
 .Cy{
-  display: block;
+  display: inline-block;
   margin: 20px;
-  background-color: white;
-  height: 60vmin;
+  background-color:rgb(191, 201, 245);
+  height: 80vmin;
   border: solid;
-  width: auto;
+  width: 80%;
   
 }
 
 .Lists{
   display: flex;
+  font-family:'Courier New', Courier, monospace;
+  flex-direction: row-reverse;  
+  align-content: space-around;
+  background-color: white;
+}
 
+.Lists td{
+
+  border: solid;
+  width:20vmin;
+  border-width: 2px;
+  background-color: gray;
 }
 
 .GraphName{

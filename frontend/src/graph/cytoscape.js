@@ -49,6 +49,7 @@ const graph = (newCy) => {
             content:"Remove",
             select: (ele) => {
               cy.remove(ele)
+              cy.resize()
             }
           },
           {
@@ -56,6 +57,7 @@ const graph = (newCy) => {
             select: (ele) => {
               ele.select()
               ele.lock()
+              cy.resize()
             }
           },
           {
@@ -64,6 +66,7 @@ const graph = (newCy) => {
               let name = window.prompt()
               if (name){
               ele.data("name", name)
+              cy.resize()
               }       
             }
           },{
@@ -82,6 +85,7 @@ const graph = (newCy) => {
           content:"Remove",
           select: (ele) => {
             cy.remove(ele)
+            cy.resize()
           }
           },
           {
@@ -90,6 +94,7 @@ const graph = (newCy) => {
             let name = window.prompt()
             if(name){
                 ele.data("name", name)
+                cy.resize()
             }
  
           }

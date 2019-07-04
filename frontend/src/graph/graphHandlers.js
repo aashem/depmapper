@@ -1,4 +1,3 @@
-import React from 'react'
 
 const graphHandlers = (cy, initEdges, initNodes) => {
 
@@ -8,13 +7,7 @@ const graphHandlers = (cy, initEdges, initNodes) => {
             initEdges(cy.edges())
             initNodes(cy.nodes())
         })
-        return <div></div>
-    }else{
-        return <div></div>
     }
-
-  
-
 }
 
 

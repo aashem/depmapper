@@ -5,16 +5,22 @@ const ListNodes = (props) => {
     
     if (props.nodes[0]){
         let list = props.nodes.map(n => 
-            <div key = {n.id}>
-            <p>Node:{n.name} || Id: {n.id}</p>
-            </div>
+             <tr key = {n.id()}> 
+            <td>{n.data('name') +' '+ n.id()}</td>
+         
+            </tr> 
             )
-        return <div>
-            <h2>Nodes</h2>
-        {list}
-        </div>
+        return <table>
+            <tbody>
+                <tr>
+                    <th>NAME</th>
+                    <th>ID</th>
+                </tr>
+                 {list}
+            </tbody>
+        </table>
     }
-    return <div>Loading...</div>
+    return <div>Select Graph</div>
     
 }
 
