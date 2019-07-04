@@ -2,12 +2,20 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 const ListNodes = (props) => {
+    let cy = props.cy
+
+    const clickHandler = (event) => {
+        console.log(event.target.id)
+        cy.nodes(cy.nodes().filter(n => n.id() === event.target.id)).select()
+        setTimeout(()=> {
+            cy.nodes().unselect()
+        },500)
+    } 
     
     if (props.nodes[0]){
         let list = props.nodes.map(n => 
              <tr key = {n.id()}> 
-            <td>{n.data('name') +' '+ n.id()}</td>
-         
+            <td onClick={clickHandler} id = {n.id()}>{n.data('name') +' '+ n.id()}</td>
             </tr> 
             )
         return <table>
@@ -26,6 +34,7 @@ const ListNodes = (props) => {
 
 const mapStateToProps = state => {
     return{
+        cy: state.cy,
         nodes: state.nodes,
     }
 }

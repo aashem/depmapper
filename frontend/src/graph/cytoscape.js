@@ -103,20 +103,27 @@ const graph = (newCy) => {
       })
   
       cy.on('tap', (event) => {
-        // target holds a reference to the originator
-        // of the event (core or element)
         let evtTarget = event.target;
+        console.log(selectedNodes)
         if(evtTarget !== cy){
+
             console.log(evtTarget.id())
+
           if(selectedNodes.length === 1){
+
             selectedNodes.push(evtTarget)  
-            if(selectedNodes.length === 2){
+
+            if(selectedNodes.length > 1){
+
               let compareId = cy.edges().map(e => e.id())
               let edgeId = `${selectedNodes[0].id()}${selectedNodes[1].id()}`
-              if(compareId.includes("e" + edgeId)){
-                window.alert("Connection already exists")
+
+                if(compareId.includes("e" + edgeId)){
+
+                  window.alert("Connection already exists")
               }else{
-                cy.add({group:"edges", data:{ id: "e"+ selectedNodes[0].id()+selectedNodes[1].id(), source:selectedNodes[0].id(), target:selectedNodes[1].id(), name:"" }})
+
+                  cy.add({group:"edges", data:{ id: "e"+ selectedNodes[0].id()+selectedNodes[1].id(), source:selectedNodes[0].id(), target:selectedNodes[1].id(), name:"" }})
               }
               selectedNodes = []
           }

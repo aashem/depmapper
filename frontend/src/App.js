@@ -10,7 +10,6 @@ import Header from './ui/header'
 import graph from './graph/cytoscape'
 import './styles/App.css'
 import ListNodes from './ui/ListNodes'
-import ListEdges from './ui/ListEdges'
 
 
 
