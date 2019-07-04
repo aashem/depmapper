@@ -5,8 +5,9 @@ const ListNodes = (props) => {
     let cy = props.cy
 
     const clickHandler = (event) => {
-        console.log(event.target.id)
         cy.nodes(cy.nodes().filter(n => n.id() === event.target.id)).select()
+        let selected = cy.nodes(cy.nodes().filter(n => n.id() === event.target.id))
+        console.log(selected)
         setTimeout(()=> {
             cy.nodes().unselect()
         },500)

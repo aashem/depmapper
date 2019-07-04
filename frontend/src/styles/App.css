@@ -1,5 +1,5 @@
 * .App{
-  padding: 5%;
+  padding: 0;
   background-color: rgb(1, 1, 192);
 }
 
@@ -22,17 +22,16 @@
 
 .Panel{
   background-color: blue;
- display: flex;
- align-content: center;
+  display: flex;
  width: auto;
- height: 10vmin;
+ height: 8vmin;
  margin:20px;
 
 }
 .Panel button{
   font-family: 'Courier New', Courier, monospace;
   border: solid;
-  width: 32.4%;
+  width: 32%;
   margin: 5px;
   font-size: 25px; 
   border-radius: 10px;
@@ -42,7 +41,8 @@
 .Select{
   width: 100%;
   border: solid;
-  border-color: black;
+  border-color: teal;
+  border-width: 10px;
 }
 
 
@@ -50,7 +50,7 @@
   display: inline-block;
   margin: 20px;
   background-color:rgb(191, 201, 245);
-  height: 80vmin;
+  height: 60vmin;
   border: solid;
   width: 100%;
   
@@ -73,6 +73,7 @@
 }
 
 .GraphName{
+  padding-left: 20px;
   font-family: 'Courier New', Courier, monospace;
   color: white;
 }
