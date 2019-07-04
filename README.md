@@ -1,7 +1,13 @@
 # depmapper
 
-Start backend
--> npm run watch
+## scripts
 
-Start frontend
--> npm start
+Start backend/
+-> npm run watch *starts nodemon*
+
+Start frontend/
+-> npm start *starts react web app*
+
+## .env
+
+requires .env file with mongoURL and PORT variables

@@ -5,9 +5,12 @@ import {postJson, initializeJson, updateJson, initJsonId, removeGraphId} from '.
 import {initCy} from './reducers/cyReducer'
 import {initializeNodes} from './reducers/nodeReducer'
 import {initializeEdges} from './reducers/edgeReducer'
+import graphHandlers from './graph/graphHandlers'
 import Header from './ui/header'
 import graph from './graph/cytoscape'
 import './styles/App.css'
+import ListNodes from './components/ListNodes'
+import ListEdges from './components/ListEdges'
 
 
 
@@ -40,6 +43,7 @@ const App = (props) => {
             //cy.json(props.graph) method configures graph with the json'
         //Maps graph names to a list from the db to be read by the select component
         updateGraphNames()
+        graphHandlers(cy, props.initializeEdges, props.initializeNodes)
         setStart(false)
       }
     }
@@ -57,6 +61,7 @@ const App = (props) => {
     let name = props.graph.filter(j => j.id === newId)
     setCurrName(name[0].name)
     loadGraph(newId)
+    cy.resize()
   }
   
   
@@ -109,7 +114,7 @@ const App = (props) => {
     setCurrName(newName)
     cy.destroy()
     setCy(graph(true))
-    
+    cy.resize()
   }
 
   const deleteGraph = () => {
@@ -120,6 +125,7 @@ const App = (props) => {
       }else{
         console.log("here")
       }
+      cy.resize()
 
   }
 
@@ -131,6 +137,7 @@ const App = (props) => {
     }
       props.removeGraphId(id)
       props.postJson(graph)
+      cy.resize()
    
   }
   return (
@@ -156,10 +163,12 @@ const App = (props) => {
         <button onClick ={saveGraph}>save</button>
         <button onClick = {loadGraph}>load</button>
         <button onClick = {addNode}>Add Node</button>
-          <div className = "Lists">
+            <div className = "Lists">
+            <ListNodes/>  
+            <ListEdges/>
+            </div>
+      </div>      
     </div>
-      </div>
-          </div>
   </div>
   )
 
