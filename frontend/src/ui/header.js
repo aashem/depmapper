@@ -1,11 +1,9 @@
 import React from 'react'
 
-const Header = (currName) => {
-    let name = currName.currName
+const Header = () => {
   
     return <div>DepMapper
       <a href="https://github.com/aashem/depmapper/"> Git</a>
-      <h2>Selected Graph : {name}</h2>
     </div>
   }
   

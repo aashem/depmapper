@@ -143,6 +143,7 @@ const App = (props) => {
         <button onClick = {renameGraph} className = "UpperButton">Rename Graph</button>
       </div>
     <div className="Cy"id = 'cy' ></div>
+    <h3 className = "GraphName">Graph: {currName}</h3>
       <form>
           <Select 
           className = "Select"
