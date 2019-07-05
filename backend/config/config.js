@@ -4,7 +4,7 @@ require('dotenv').config()
 let MONGOURI = process.env.MONGO_URI || 'mongodb://localhost:27017/depmapper'
 
 
-let PORT = process.env.PORT
+let PORT = process.env.PORT || 3001
 
 module.exports = {
     MONGOURI, 

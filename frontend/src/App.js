@@ -11,6 +11,9 @@ import graph from './graph/cytoscape'
 import './styles/App.css'
 import ListNodes from './ui/ListNodes'
 
+//todo compound node functionality
+//todo split app into smaller components
+
 
 
 

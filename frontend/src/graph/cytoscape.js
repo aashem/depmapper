@@ -2,8 +2,10 @@ import cytoscape from 'cytoscape'
 import cxtmenu from 'cytoscape-cxtmenu'
 
 const graph = (newCy) => {
+    let isGroup = false
 
     let selectedNodes = []
+    let groupingList = []
     if(!newCy){
       cytoscape.use(cxtmenu)
     }
@@ -72,7 +74,10 @@ const graph = (newCy) => {
           },{
             content:"Group",
             select: (ele) => {
-              ele.select()
+              isGroup = true
+              groupingList.push(ele)
+              window.alert('choose parent node')
+              cy.resize()
             }
           }
         ],
@@ -106,9 +111,11 @@ const graph = (newCy) => {
         let evtTarget = event.target;
         console.log(selectedNodes)
         if(evtTarget !== cy){
-
-            console.log(evtTarget.id())
-
+            console.log(evtTarget.data())
+          if(groupingList.length >= 1){
+            groupingList[0].move({parent: evtTarget.id()})
+            groupingList = []
+          }
           if(selectedNodes.length === 1){
 
             selectedNodes.push(evtTarget)  
@@ -133,21 +140,42 @@ const graph = (newCy) => {
   
       cy.on('lock', (event) => {
         let selected = event.target;
-        window.alert("choose target")
-        selectedNodes.push(selected)
-        selected.unlock()
+
+        if(isGroup){
+          isGroup = false
+          selected.unlock()
+
+        }else{
+
+          window.alert("choose target")
+          selectedNodes.push(selected)
+          selected.unlock()
+        }
+  
       } )
       cy.on('select', (event) => {
         let selected = event.target
-        selected.animate({
-          style:{backgroundColor: "blue"}
-        })
-        setTimeout(() => {
+
+        if(!selected.isParent()){
           selected.animate({
-            style:{backgroundColor: "black"}
+            style:{backgroundColor: "blue"}
           })
-        }, 1000);
-      
+          setTimeout(() => {
+            selected.animate({
+              style:{backgroundColor: "black"}
+            })
+          }, 1000);
+  
+        }
+       
+      cy.on('data', (event) => {
+        let selected = event.target
+        if(selected.isParent()){
+          selected.animate({
+            style:{backgroundColor:"green"}
+          })
+        } 
+      })
     })
 
     

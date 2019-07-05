@@ -3,6 +3,8 @@
   background-color: rgb(1, 1, 192);
 }
 
+/*todo  Split styling based on the components it affects*/
+
 .Header{
   margin: 20px;
 }
