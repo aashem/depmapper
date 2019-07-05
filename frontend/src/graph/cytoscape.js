@@ -75,6 +75,7 @@ const graph = (newCy) => {
             content:"Group",
             select: (ele) => {
               isGroup = true
+              ele.lock()
               groupingList.push(ele)
               window.alert('choose parent node')
               cy.resize()
@@ -106,6 +107,8 @@ const graph = (newCy) => {
         }
       ]
       })
+
+      //todo refactor all eventhandlers to fix bugs and usability issues 
   
       cy.on('tap', (event) => {
         let evtTarget = event.target;
@@ -114,6 +117,7 @@ const graph = (newCy) => {
             console.log(evtTarget.data())
           if(groupingList.length >= 1){
             groupingList[0].move({parent: evtTarget.id()})
+            evtTarget.animate({style:{backgroundColor:"green"}})
             groupingList = []
           }
           if(selectedNodes.length === 1){

@@ -2,15 +2,17 @@
 
 ## scripts
 
-Start backend/
+### starts backend
+
 -> npm run watch // *starts nodemon*
 
-Start frontend/
+### starts frontend
+
 -> npm start // *starts react web app*
 
 ## .env
 
-requires .env file with mongoURL and PORT variables
+requires .env file at backend/ with MONGO_URI variable
 
 ## TODO
 
