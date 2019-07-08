@@ -86,22 +86,20 @@ const App = (props) => {
   const loadGraph = (newId) => {
     let graph
 
-    //if currName clause checks graph is selected
-    if(currName){
       if (!id || typeof newId === typeof id){
       let id = newId
       graph = props.graph.filter(j => j.id === id)
+      console.log(graph[0].json)
       cy.json(graph[0].json)
       }else{
         graph = props.graph.filter(j => j.id === id)
         cy.json(graph[0].json)
         }
-    }
 
   }
 
   const addNode = (event) => {
-    cy.reset()
+    console.log(cy.style().json())
     event.preventDefault()
       const createId = () => {
         let id = cy.nodes().size()
@@ -118,8 +116,11 @@ const App = (props) => {
       },
     })
 
-    added.style('shape', `${event.target.shape.value}`)
-    added.style('backgroundColor', `${event.target.color.value}`)
+    //create new stylesheet for each node so properties are saved into the json
+    cy.style().selector('node#' + added.id())
+      .style({'background-color' : `${event.target.color.value}`, 'shape' : `${event.target.shape.value}`})
+        .update()
+
     cy.resize()
   }
 
