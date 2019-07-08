@@ -21,7 +21,7 @@ const App = (props) => {
   let shapes = shapeList.map(s => s = {value: s, label: s})
   let colors = colorList.map(c => c = {value: c, label: c})
   const [cy, setCy] = useState('')
-  const [id, setId] = useState('')
+  const [id, setId] = useState('0')
   const [start,setStart] = useState(true)
   const [graphNames, setGraphNames] = useState([])
   const [currName, setCurrName] = useState('')
@@ -85,16 +85,18 @@ const App = (props) => {
 
   const loadGraph = (newId) => {
     let graph
-
-      if (!id || typeof newId === typeof id){
-      let id = newId
-      graph = props.graph.filter(j => j.id === id)
-      console.log(graph[0].json)
-      cy.json(graph[0].json)
-      }else{
+    if(id !== '0'|| typeof newId === typeof id){
+      if (typeof newId === typeof id){
+        let id = newId
         graph = props.graph.filter(j => j.id === id)
+        console.log(graph[0].json)
         cy.json(graph[0].json)
-        }
+        }else{
+          graph = props.graph.filter(j => j.id === id)
+          cy.json(graph[0].json)
+          }
+    }
+    
 
   }
 
