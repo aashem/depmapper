@@ -1,12 +1,18 @@
 * .App{
-  padding: 0;
+  width: 100%;
   background-color: rgb(1, 1, 192);
+}
+
+.Wrapper{
+  padding-right: 50px;
+  display: flex;
+  flex-direction: row;
 }
 
 /*todo  Split styling based on the components it affects*/
 
 .Header{
-  margin: 20px;
+  margin: 5px;
 }
 .UpperButtons{
   display: flex;
@@ -14,9 +20,9 @@
 }
 
 .UpperButtons button{
-  width:28%;
+  width:33%;
   height: 5vmin;
-  margin:20px;
+  margin:5px;
   border: solid;
   font-family: 'Courier New', Courier, monospace;
   background-color: rgb(255, 255, 255);
@@ -25,57 +31,81 @@
 .Panel{
   background-color: blue;
   display: flex;
- width: auto;
- height: 8vmin;
- margin:20px;
+  width: auto;
+  height: 8vmin;
+  margin:5px;
 
 }
 .Panel button{
   font-family: 'Courier New', Courier, monospace;
   border: solid;
-  width: 32%;
+  width: 50%;
   margin: 5px;
   font-size: 25px; 
   border-radius: 10px;
   background-image: rgb(216, 219, 216) ;
 }
 
-.Select{
-  width: 100%;
-  border: solid;
-  border-color: teal;
-  border-width: 10px;
-}
 
 
 .Cy{
-  display: inline-block;
-  margin: 20px;
+  margin: 10px;
   background-color:rgb(191, 201, 245);
   height: 60vmin;
   border: solid;
-  width: 100%;
+  width: auto;
   
 }
 
-.Lists{
+.LeftPanel{
+  border: solid;
+  margin: 10px;
   display: flex;
+  width: auto;
   font-family:'Courier New', Courier, monospace;
-  flex-direction: row-reverse;  
-  align-content: space-around;
-  background-color: white;
+  flex-direction: row; 
+  background-color: gray;
 }
 
-.Lists td{
+.LeftPanelLeft{
+  flex-direction: column;
+}
+
+.LeftPanel td{
 
   border: solid;
   width:20vmin;
   border-width: 2px;
-  background-color: gray;
+  background-color: white;
 }
 
+
 .GraphName{
-  padding-left: 20px;
   font-family: 'Courier New', Courier, monospace;
-  color: white;
+  color: black;
 }
+
+.Select{
+  width: 20vmin;
+  border: solid;
+  border-color: black;
+}
+
+
+.AddNodePanel{
+  display: flex;
+  padding: 5px;
+  flex-direction: column;
+
+}
+
+.AddNodePanel button{
+  font-family: 'Courier New', Courier, monospace;
+  border: solid;
+  width: 20%;
+  margin: 5px;
+  font-size: 25px; 
+  border-radius: 10px;
+  background-image: rgb(216, 219, 216) ;
+}
+

@@ -4,10 +4,12 @@
 
 ### starts backend
 
+-<> npm install
 -> npm run watch // *starts nodemon*
 
 ### starts frontend
 
+-<> npm install
 -> npm start // *starts react web app*
 
 ## .env

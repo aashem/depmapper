@@ -21,7 +21,6 @@ const graph = (newCy) => {
           {
             selector: 'node',
             style: {
-              'background-color': 'black',
               'label': 'data(name)',
             }
           },
@@ -31,8 +30,8 @@ const graph = (newCy) => {
             style: {
               'curve-style': "bezier",
               'width': 5,
-              'line-color': 'yellow',
-              'target-arrow-color': 'yellow',
+              'line-color': 'black',
+              'target-arrow-color': 'black',
               'target-arrow-shape': 'triangle',
               'label': 'data(name)'
             }
@@ -92,7 +91,7 @@ const graph = (newCy) => {
           select: (ele) => {
             cy.remove(ele)
             cy.resize()
-          }
+            }
           },
           {
           content:"Rename",
@@ -101,11 +100,11 @@ const graph = (newCy) => {
             if(name){
                 ele.data("name", name)
                 cy.resize()
-            }
+              }
  
+            }
           }
-        }
-      ]
+        ]
       })
 
       //todo refactor all eventhandlers to fix bugs and usability issues 
@@ -117,7 +116,6 @@ const graph = (newCy) => {
             console.log(evtTarget.data())
           if(groupingList.length >= 1){
             groupingList[0].move({parent: evtTarget.id()})
-            evtTarget.animate({style:{backgroundColor:"green"}})
             groupingList = []
           }
           if(selectedNodes.length === 1){
@@ -157,30 +155,8 @@ const graph = (newCy) => {
         }
   
       } )
-      cy.on('select', (event) => {
-        let selected = event.target
-
-        if(!selected.isParent()){
-          selected.animate({
-            style:{backgroundColor: "blue"}
-          })
-          setTimeout(() => {
-            selected.animate({
-              style:{backgroundColor: "black"}
-            })
-          }, 1000);
   
-        }
-       
-      cy.on('data', (event) => {
-        let selected = event.target
-        if(selected.isParent()){
-          selected.animate({
-            style:{backgroundColor:"green"}
-          })
-        } 
-      })
-    })
+
 
     
   

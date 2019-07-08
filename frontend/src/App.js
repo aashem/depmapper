@@ -10,14 +10,16 @@ import Header from './ui/header'
 import graph from './graph/cytoscape'
 import './styles/App.css'
 import ListNodes from './ui/ListNodes'
+import {shapeList, colorList} from './graph/nodeStyles'
 
-//todo compound node functionality
 //todo split app into smaller components
 
 
 
 
 const App = (props) => {
+  let shapes = shapeList.map(s => s = {value: s, label: s})
+  let colors = colorList.map(c => c = {value: c, label: c})
   const [cy, setCy] = useState('')
   const [id, setId] = useState('')
   const [start,setStart] = useState(true)
@@ -82,14 +84,19 @@ const App = (props) => {
   }
 
   const loadGraph = (newId) => {
-    if (!id || typeof newId === typeof id){
-     let id = newId
-     let graph = props.graph.filter(j => j.id === id)
-     cy.json(graph[0].json)
-    }else{
-      let graph = props.graph.filter(j => j.id === id)
+    let graph
+
+    //if currName clause checks graph is selected
+    if(currName){
+      if (!id || typeof newId === typeof id){
+      let id = newId
+      graph = props.graph.filter(j => j.id === id)
       cy.json(graph[0].json)
-      }
+      }else{
+        graph = props.graph.filter(j => j.id === id)
+        cy.json(graph[0].json)
+        }
+    }
 
   }
 
@@ -103,13 +110,16 @@ const App = (props) => {
       }
       let id = createId()
 
-    cy.add({
+    let added = cy.add({
       data: { id: `${id}`, name: "" },
       position: {
         x:200,
         y:200,
       },
     })
+
+    added.style('shape', `${event.target.shape.value}`)
+    added.style('backgroundColor', `${event.target.color.value}`)
     cy.resize()
   }
 
@@ -147,37 +157,62 @@ const App = (props) => {
   return (
   <div className = "Header" >
     <Header currName = {currName}></Header>
+    <div className = 'Wrapper'>
+    <div className = "LeftPanel">  
+      <div className = 'LeftPanelLeft'>
+      <h3 className = "GraphName">Graph: {currName}</h3>
+              <Select 
+                placeholder = "Graph"
+                className = "Select"
+                name = "graph"
+                onChange = {selectGraph}
+                options = {graphNames}
+              ></Select> 
+
+            <ListNodes/>  
+         
+            </div>
+            </div>
+            
     <div className= "App">
       <div className = "UpperButtons">
         <button onClick = {newGraph} className = "UpperButton">New Graph</button>
         <button onClick = {deleteGraph} className = "UpperButton">Delete Graph</button>
         <button onClick = {renameGraph} className = "UpperButton">Rename Graph</button>
       </div>
-      <div className = "Lists">
-    <div className="Cy"id = 'cy'>
-      <div className = "Info">
-      </div>
-    </div>
-            <ListNodes/>  
-         {/*<ListEdges/>*/}
-            </div>
-    <h3 className = "GraphName">Graph: {currName}</h3>
-      <form>
-          <Select 
-          className = "Select"
-          name = "graph"
-          onChange = {selectGraph}
-          options = {graphNames}
-          ></Select>
-      </form>
+      
+      
+    <div className="Cy"id = 'cy'></div>
+            <div className = 'AddNodePanel'>
+          <form onSubmit = {addNode}>
+            <button type= 'submit'>Add Node</button>
+              <Select
+              placeholder = 'shape'
+              className = 'AddNodePanel'
+              name = "shape"
+              options = {shapes}
+              >
+              </Select>
+              <Select
+              placeholder = 'color'
+              className = 'AddNodePanel'
+              name= "color"
+              options = {colors}
+              ></Select>
+          </form>
+        </div>
+     
+    
       <div className= "Panel">
         <button onClick ={saveGraph}>save</button>
         <button onClick = {loadGraph}>load</button>
-        <button onClick = {addNode}>Add Node</button>
+      
       
       </div>      
     </div>
   </div>
+  </div>
+
   )
 
     
