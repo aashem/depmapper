@@ -75,11 +75,12 @@ const App = (props) => {
       json: cy.json(),
       name: currName,
     }
-    if(props.graph.map(g => g.name).includes(currName)){
-      props.updateJson(id, graph)
-    }else{
-      props.postJson(graph)
-    }
+      if(props.graph.map(g => g.name).includes(currName)){
+        props.updateJson(id, graph)
+      }else{
+        props.postJson(graph)
+      }
+   
    
   }
 
@@ -101,7 +102,6 @@ const App = (props) => {
   }
 
   const addNode = (event) => {
-    console.log(cy.style().json())
     event.preventDefault()
       const createId = () => {
         let id = cy.nodes().size()
@@ -117,10 +117,10 @@ const App = (props) => {
         y:200,
       },
     })
-
+    //refactor
     //create new stylesheet for each node so properties are saved into the json
     cy.style().selector('node#' + added.id())
-      .style({'background-color' : `${event.target.color.value}`, 'shape' : `${event.target.shape.value}`})
+      .style({'background-color' : `${event.target.color.value}` || 'black', 'shape' : `${event.target.shape.value}` || 'ellipse'})
         .update()
 
     cy.resize()
@@ -135,6 +135,7 @@ const App = (props) => {
   }
 
   const deleteGraph = () => {
+    if(id !== '0'){
     if(window.confirm(`Delete ${currName} from app & database`)){
       cy.destroy()
       setCy(graph(true))
@@ -143,6 +144,7 @@ const App = (props) => {
         console.log("here")
       }
       cy.resize()
+    }
 
   }
 
@@ -151,8 +153,11 @@ const App = (props) => {
     let graph = {
       json: cy.json(),
       name: name,
-    }
-      props.removeGraphId(id)
+    } 
+      if(id !== '0'){
+        props.removeGraphId(id)
+      }
+      setCurrName(name)
       props.postJson(graph)
       cy.resize()
    
@@ -190,14 +195,14 @@ const App = (props) => {
           <form onSubmit = {addNode}>
             <button type= 'submit'>Add Node</button>
               <Select
-              placeholder = 'shape'
+              placeholder = 'ellipse'
               className = 'AddNodePanel'
               name = "shape"
               options = {shapes}
               >
               </Select>
               <Select
-              placeholder = 'color'
+              placeholder = 'black'
               className = 'AddNodePanel'
               name= "color"
               options = {colors}
