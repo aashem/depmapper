@@ -5,7 +5,6 @@ import {postJson, initializeJson, updateJson, initJsonId, removeGraphId} from '.
 import {initCy} from './reducers/cyReducer'
 import {initializeNodes} from './reducers/nodeReducer'
 import {initializeEdges} from './reducers/edgeReducer'
-import graphHandlers from './graph/graphHandlers'
 import Header from './ui/header'
 import graph from './graph/cytoscape'
 import './styles/App.css'
@@ -48,7 +47,6 @@ const App = (props) => {
             //cy.json(props.graph) method configures graph with the json'
         //Maps graph names to a list from the db to be read by the select component
         updateGraphNames()
-        graphHandlers(cy, props.initializeEdges, props.initializeNodes)
         setStart(false)
       }
     }
@@ -60,13 +58,27 @@ const App = (props) => {
 
   }
 
+  const updateElements = () => {
+    props.initializeEdges(cy.edges())
+    props.initializeNodes(cy.nodes())
+  
+  }
+
+const clearElements = () => {
+    props.initializeEdges('')
+    props.initializeNodes('')
+    
+  }
+  
+
   const selectGraph = value => {
+    cy.reset()
     let newId = value.value
     setId(newId)
     let name = props.graph.filter(j => j.id === newId)
     setCurrName(name[0].name)
     loadGraph(newId)
-    cy.resize()
+    updateElements()
   }
   
   
@@ -101,8 +113,7 @@ const App = (props) => {
           cy.json(graph[0].json)
           }
     }
-    
-
+    updateElements()
   }
 
   const addNode = (event) => {
@@ -127,7 +138,7 @@ const App = (props) => {
       .style({'background-color' : `${event.target.color.value}` || 'black', 'shape' : `${event.target.shape.value}` || 'ellipse'})
         .update()
 
-    cy.resize()
+    updateElements()
   }
 
   const newGraph = () => {
@@ -138,7 +149,7 @@ const App = (props) => {
       setCurrName(newName)
       cy.destroy()
       setCy(graph(true))
-      cy.resize()
+      clearElements()
     }
  
   }
@@ -153,7 +164,7 @@ const App = (props) => {
       }else{
         console.log("no deletion")
       }
-      cy.resize()
+      clearElements()
     }else{
       window.alert('graph has not been saved')
     }
