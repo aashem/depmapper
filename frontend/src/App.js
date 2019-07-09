@@ -111,7 +111,7 @@ const App = (props) => {
       let id = createId()
 
     let added = cy.add({
-      data: { id: `${id}`, name: "" },
+      data: { id: `${id}`+ currName , name: "" },
       position: {
         x:200,
         y:200,

@@ -24,4 +24,8 @@ export const colorList = [
     'green',
     'teal',
     'yellow',
+    'white',
+    'black',
+    'gray',
+    'brown',
 ]
