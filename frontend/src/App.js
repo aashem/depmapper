@@ -18,13 +18,13 @@ import {shapeList, colorList} from './graph/nodeStyles'
 
 
 const App = (props) => {
-  let shapes = shapeList.map(s => s = {value: s, label: s})
-  let colors = colorList.map(c => c = {value: c, label: c})
+  const shapes = shapeList()
+  const colors = colorList()
   const [cy, setCy] = useState('')
   const [id, setId] = useState('0')
   const [start,setStart] = useState(true)
   const [graphNames, setGraphNames] = useState([])
-  const [currName, setCurrName] = useState('')
+  const [currName, setCurrName] = useState('new')
 
 
   useEffect(() => {
@@ -71,12 +71,16 @@ const App = (props) => {
   
   
   const saveGraph = () => {
+  
     let graph = {
       json: cy.json(),
       name: currName,
     }
-      if(props.graph.map(g => g.name).includes(currName)){
-        props.updateJson(id, graph)
+    console.log(graph.name  )
+      if(props.graph.map(g => g.name).includes(graph.name)){
+        if(window.confirm(`Already graph named ${graph.name} overwrite?`)){
+          props.updateJson(id, graph)
+        }
       }else{
         props.postJson(graph)
       }
@@ -127,11 +131,16 @@ const App = (props) => {
   }
 
   const newGraph = () => {
-    let newName = window.prompt("New Graph Name:")
-    setCurrName(newName)
-    cy.destroy()
-    setCy(graph(true))
-    cy.resize()
+    let newName = window.prompt("New Graph Name:").toString()
+    if(props.graph.map(g => g.name).includes(newName)){
+      window.alert(`graph ${newName} exists already`)
+    }else{
+      setCurrName(newName)
+      cy.destroy()
+      setCy(graph(true))
+      cy.resize()
+    }
+ 
   }
 
   const deleteGraph = () => {
@@ -140,10 +149,13 @@ const App = (props) => {
       cy.destroy()
       setCy(graph(true))
       props.removeGraphId(id)
+      setCurrName('new')
       }else{
-        console.log("here")
+        console.log("no deletion")
       }
       cy.resize()
+    }else{
+      window.alert('graph has not been saved')
     }
 
   }
@@ -168,7 +180,7 @@ const App = (props) => {
     <div className = 'Wrapper'>
     <div className = "LeftPanel">  
       <div className = 'LeftPanelLeft'>
-      <h3 className = "GraphName">Graph: {currName}</h3>
+      <h3 className = "GraphName">Graph: {currName} </h3>
               <Select 
                 placeholder = "Graph"
                 className = "Select"

@@ -1,4 +1,6 @@
-export const shapeList = [
+
+export const shapeList = () => {
+const shapeList = [
     'ellipse',
     'triangle',
     'rectangle',
@@ -17,8 +19,12 @@ export const shapeList = [
     'tag',
     'vee'
 ]
+ 
+    return shapeList.map(s => s = {value: s, label: s})
+}
 
-export const colorList = [
+export const colorList = () =>{
+const colorList = [
     'blue',
     'red',
     'green',
@@ -29,3 +35,5 @@ export const colorList = [
     'gray',
     'brown',
 ]
+    return colorList.map(c => c = {value: c, label: c})
+}
