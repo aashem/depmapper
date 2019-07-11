@@ -1,10 +1,14 @@
 version: '3.7'
 
 services:
+    
     mongo:
         image: mongo
+        container_name: mongodb
         ports:
           - 27017:27017
+        networks:
+          - closed
 
     api:
         build:
@@ -12,6 +16,11 @@ services:
           dockerfile: dockerfile
         ports: 
           - 3001:3001
+        environment:
+          - MONGO_PATH='mongodb://mongo:27017/depmapper'
+        networks:
+          - closed
+          - public
         depends_on:
           - mongo
     
@@ -21,5 +30,10 @@ services:
           dockerfile: dockerfile
         ports: 
           - 3000:3000
-        depends_on:
-          - mongo
+        networks:
+          - public
+networks:
+    closed:
+    public:   
+       
+ 

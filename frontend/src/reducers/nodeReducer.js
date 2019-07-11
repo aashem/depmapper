@@ -1,6 +1,8 @@
+const INITNODES = 'INITNODES'
+
 const nodeReducer = (state = {}, action) => {
     switch(action.type){
-        case "INITNODES":
+        case INITNODES:
             return action.data
         default:
             return state
@@ -9,7 +11,7 @@ const nodeReducer = (state = {}, action) => {
 
 export const initializeNodes = (nodes) => {
     return{
-        type:"INITNODES",
+        type: INITNODES,
         data: nodes
     }
 }

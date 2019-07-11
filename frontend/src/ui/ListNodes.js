@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 
 const ListNodes = (props) => {
-    let [show, setShow]  = useState('false')
+    //let [show, setShow]  = useState('false')
     let cy = props.cy
 
 
@@ -14,7 +14,7 @@ const ListNodes = (props) => {
         setTimeout(()=> {
             cy.nodes().unselect()
         },500)
-        setShow(true)
+       // setShow(true)
     } 
 
       
