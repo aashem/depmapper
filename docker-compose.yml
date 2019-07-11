@@ -32,6 +32,21 @@ services:
           - 3000:3000
         networks:
           - public
+    nginx:
+        image: nginx:latest 
+        networks:
+          - public
+          - closed
+        ports:
+          - 8080:80
+          - 8443:443
+        volumes:
+          - ./:/usr/webapp/src
+          - ./proxy/nginx.conf:/etc/nginx/nginx.conf  
+        depends_on:
+          - app
+          - api
+ 
 networks:
     closed:
     public:   
