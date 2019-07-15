@@ -33,14 +33,16 @@ graphRouter.post('/', async(request, response) => {
 }
 })
 
-graphRouter.get('/:id', async(request,response) => {
+graphRouter.get('/:name', async(request,response) => {
     try{
-    const result = await Graph.findById(request.params.id)
+    const result = await Graph.find({ "name" : request.params.name})
     await response.json(result)
     }catch{
         response.status(400).end('not quite')
     }
 })
+
+
 
 graphRouter.put('/:id', async(request, response) => {
     body = request.body

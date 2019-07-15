@@ -17,6 +17,6 @@ console.log(`connected to db at ${mongoUri}`)
 app.use(cors())
 app.use(bodyParser.json())
 
-app.use('/api/graph', graphRouter)
+app.use('/api/graphs', graphRouter)
 
 module.exports = app

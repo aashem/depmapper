@@ -15,7 +15,13 @@ import {shapeList, colorList} from './graph/nodeStyles'
 //todo split app into smaller components
 
 
+/*
 
+* tagging of notes, edges
+* change of state is possible all the time
+* Note / Edges have text fields
+LOW PRIORITY: * https everything (edited) 
+* at startup - display no graph, what for selection */
 
 const App = (props) => {
   const shapes = shapeList()
@@ -73,7 +79,6 @@ const clearElements = () => {
   
 
   const selectGraph = value => {
-    cy.reset()
     let newId = value.value
     setId(newId)
     let name = props.graph.filter(j => j.id === newId)
