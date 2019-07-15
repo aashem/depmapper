@@ -79,6 +79,7 @@ const clearElements = () => {
   
 
   const selectGraph = value => {
+    cy.nodes().remove()
     let newId = value.value
     setId(newId)
     let name = props.graph.filter(j => j.id === newId)
