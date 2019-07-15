@@ -143,10 +143,13 @@ const graph = (newCy) => {
       cy.on('lock', (event) => {
         let selected = event.target;
 
+        if (selectedNodes.length > 0){
+          selectedNodes = []
+        }
+
         if(isGroup){
           isGroup = false
           selected.unlock()
-
         }else{
 
           window.alert("choose target")
