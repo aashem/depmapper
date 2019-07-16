@@ -10,6 +10,7 @@ import graph from './graph/cytoscape'
 import './styles/App.css'
 import ListNodes from './ui/ListNodes'
 import {shapeList, colorList} from './graph/nodeStyles'
+import StyleEditor from './ui/styleEditor'
 //import dispatchTest from './graph/graphHandlers'
 
 //todo split app into smaller components
@@ -126,6 +127,7 @@ const clearElements = () => {
 
   const addNode = (event) => {
     event.preventDefault()
+ 
       const createId = () => {
         let id = cy.nodes().size()
         id = id + 1
@@ -209,6 +211,7 @@ const clearElements = () => {
               ></Select> 
 
             <ListNodes/>  
+            <StyleEditor/>
          
             </div>
             </div>

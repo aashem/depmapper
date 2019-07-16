@@ -158,12 +158,8 @@ const graph = (newCy) => {
         }
   
       } )
-  
 
-
-    
-  
-      
+        
   
     return cy
   }
