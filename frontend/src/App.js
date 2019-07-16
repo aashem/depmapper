@@ -145,7 +145,7 @@ const clearElements = () => {
     //refactor
     //create new stylesheet for each node so properties are saved into the json
     cy.style().selector('node#' + added.id())
-      .style({'background-color' : `${event.target.color.value}` || 'black', 'shape' : `${event.target.shape.value}` || 'ellipse'})
+      .style({'background-color' : `${event.target.color.value}` || 'black', 'shape' : `${event.target.shape.value}` || 'ellipse', 'border-style' : 'solid', 'border-width' : '2px'})
         .update()
 
     updateElements()
