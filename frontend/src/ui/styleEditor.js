@@ -9,29 +9,31 @@ const StyleEditor = (props) => {
     const [selected, setSelected] = useState('')
     const [currWidth, setCurrWidth] = useState('')
     const [currHeight, setCurrHeight] = useState('')
+    const [hidden, setHidden] = useState(true)
     let colors = colorList()
-    let hidden = false
     let cy = props.cy
     if (cy){
-        cy.on('select', (event) => {
+        cy.once('select', (event) => {
+            setHidden(false)
             setSelected(event.target)
             setActiveNode(event.target.id())
             setCurrColor(event.target.style('background-color'))
             setCurrWidth(event.target.style('width'))
             setCurrHeight(event.target.style('height'))
-            console.log(event.target.style('width'))
+            event.target.style({"border-color": "purple", "border-style" : "solid", "border-width" : "8px" })
         })
         cy.on('unselect', (event) => {
+            setHidden(true)
             setActiveNode('')
             setCurrColor('')
             setSelected('')
             setCurrHeight('')
             setCurrWidth('')
+            event.target.style({"border-color" : 'black', "border-style" : "solid", "border-width" : "2px"})
         })
     }
 
     const changeColor = (event) => {
-        console.log(event)
         if(selected){
             cy.style().selector('node#' + selected.id()).style({backgroundColor: event.value}).update()
             setCurrColor(event.value)
@@ -40,18 +42,18 @@ const StyleEditor = (props) => {
     }
 
     const changeWidth = (event) => {
+        let width = parseInt(event.target.value)
         event.preventDefault()
-        console.log(event.target.value)
-        if(selected){
-            cy.style().selector('node#' + selected.id()).style({width: event.target.value}).update()
+        if(selected && (width >= 30 && width <= 100)){
+            cy.style().selector('node#' + selected.id()).style({width: width}).update()
         }
     }
 
     const changeHeight = (event) => {
+        let height = parseInt(event.target.value)
         event.preventDefault()
-        console.log(event.target.value)
-        if(selected){
-            cy.style().selector('node#' + selected.id()).style({height: event.target.value}).update()
+        if(selected && ( height <= 100 && height >= 30)){
+            cy.style().selector('node#' + selected.id()).style({height: height}).update()
         }
     }
     
@@ -70,10 +72,10 @@ const StyleEditor = (props) => {
             </Select>
             <hr></hr>
             <p>size</p>
-            x
-            <input  onChange = {changeWidth}  style = {{width: '40px'}}></input>
+            x   
+            <input type= 'number' onChange = {changeWidth} min = '30' max = '100' defaultValue = {30} style = {{width: '40px'}}></input>
             y
-            <input  onChange = {changeHeight} style = {{width: '40px'}}></input>
+            <input type = 'number' onChange = {changeHeight} min = '30' max = '100' defaultValue = {30} style = {{width: '40px'}}></input>
     
     
         </div>

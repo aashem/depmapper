@@ -8,12 +8,10 @@ const ListNodes = (props) => {
 
     //todo show edges connected to the node when the table element is clicked
     const clickHandler = (event) => {
+        cy.nodes().unselect()
         cy.nodes(cy.nodes().filter(n => n.id() === event.target.id)).select()
         let selected = cy.nodes(cy.nodes().filter(n => n.id() === event.target.id))
         console.log(selected)
-        setTimeout(()=> {
-            cy.nodes().unselect()
-        },500)
        // setShow(true)
     } 
 
