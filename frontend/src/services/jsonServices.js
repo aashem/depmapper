@@ -24,9 +24,14 @@ const getById = async (id) => {
     return response.data
 }
 
+const getByName = async (name) => {
+    const response = await Axios.get(url+`/${name}`)
+    return response.data
+}
+
 const remove = async (id) => {
     const response = await Axios.delete(url+`/${id}`)
     return response.data
 }
 
-export default {getAll, create, update, getById, remove}
+export default {getAll, create, update, getById, remove, getByName}

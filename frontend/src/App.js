@@ -11,6 +11,7 @@ import './styles/App.css'
 import ListNodes from './ui/ListNodes'
 import {shapeList, colorList} from './graph/nodeStyles'
 import StyleEditor from './ui/styleEditor'
+import jsonServices from './services/jsonServices'
 //import dispatchTest from './graph/graphHandlers'
 
 //todo split app into smaller components
@@ -80,6 +81,7 @@ const clearElements = () => {
   
 
   const selectGraph = value => {
+    cy.nodes().unselect()
     cy.nodes().remove()
     let newId = value.value
     setId(newId)
@@ -90,15 +92,16 @@ const clearElements = () => {
   }
   
   
-  const saveGraph = () => {
+  const saveGraph = async() => {
   
     let graph = {
       json: cy.json(),
       name: currName,
     }
-    console.log(graph.name  )
       if(props.graph.map(g => g.name).includes(graph.name)){
         if(window.confirm(`Already graph named ${graph.name} overwrite?`)){
+          let targetGraph = await jsonServices.getByName(currName)
+          let id = targetGraph[0].id
           props.updateJson(id, graph)
         }
       }else{
