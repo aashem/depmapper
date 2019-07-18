@@ -12,6 +12,7 @@ import ListNodes from './ui/ListNodes'
 import {shapeList, colorList} from './graph/nodeStyles'
 import StyleEditor from './ui/styleEditor'
 import jsonServices from './services/jsonServices'
+import Button from '@material-ui/core/Button'
 //import dispatchTest from './graph/graphHandlers'
 
 //todo split app into smaller components
@@ -155,7 +156,7 @@ const clearElements = () => {
   }
 
   const newGraph = () => {
-    let newName = window.prompt("New Graph Name:").toString()
+    let newName = window.prompt("New Graph Name:")
     if(props.graph.map(g => g.name).includes(newName)){
       window.alert(`graph ${newName} exists already`)
     }else{
@@ -195,15 +196,14 @@ const clearElements = () => {
       }
       setCurrName(name)
       props.postJson(graph)
-      cy.resize()
-   
+      cy.nodes().unselect()
   }
   return (
   <div className = "Header" >
     <Header currName = {currName}></Header>
     <div className = 'Wrapper'>
     <div className = "LeftPanel">  
-      <div className = 'LeftPanelLeft'>
+    
       <h3 className = "GraphName">Graph: {currName} </h3>
               <Select 
                 placeholder = "Graph"
@@ -212,25 +212,24 @@ const clearElements = () => {
                 onChange = {selectGraph}
                 options = {graphNames}
               ></Select> 
-
-            <ListNodes/>  
-            <StyleEditor/>
-         
+     <div className = 'Lists'>
+            <ListNodes/> 
             </div>
+            <StyleEditor/>
             </div>
             
     <div className= "App">
       <div className = "UpperButtons">
-        <button onClick = {newGraph} className = "UpperButton">New Graph</button>
-        <button onClick = {deleteGraph} className = "UpperButton">Delete Graph</button>
-        <button onClick = {renameGraph} className = "UpperButton">Rename Graph</button>
+        <Button onClick = {newGraph} className = "UpperButtons">New Graph</Button>
+        <Button onClick = {deleteGraph} className = "UpperButtons">Delete Graph</Button>
+        <Button onClick = {renameGraph} className = "UpperButtons">Rename Graph</Button>
       </div>
       
       
     <div className="Cy"id = 'cy'></div>
             <div className = 'AddNodePanel'>
           <form onSubmit = {addNode}>
-            <button type= 'submit'>Add Node</button>
+            <Button type= 'submit'>Add Node</Button>
               <Select
               placeholder = 'ellipse'
               className = 'AddNodePanel'
@@ -249,8 +248,8 @@ const clearElements = () => {
      
     
       <div className= "Panel">
-        <button onClick ={saveGraph}>save</button>
-        <button onClick = {loadGraph}>load</button>
+        <Button onClick ={saveGraph}>save</Button>
+        <Button onClick = {loadGraph}>load</Button>
       
       
       </div>      

@@ -19,13 +19,12 @@
   background-color: blue;
 }
 
-.UpperButtons button{
+.UpperButtons Button{
   width:33%;
-  height: 5vmin;
   margin:5px;
   border: solid;
-  font-family: 'Courier New', Courier, monospace;
   background-color: rgb(255, 255, 255);
+  font-family: 'Roboto'
 }  
 
 .Panel{
@@ -36,14 +35,12 @@
   margin:5px;
 
 }
-.Panel button{
-  font-family: 'Courier New', Courier, monospace;
+.Panel Button{
+  width:50%;
+  margin:5px;
   border: solid;
-  width: 50%;
-  margin: 5px;
-  font-size: 25px; 
-  border-radius: 10px;
-  background-image: rgb(216, 219, 216) ;
+  background-color: rgb(255, 255, 255);
+  font-family: 'Roboto'
 }
 
 
@@ -59,34 +56,22 @@
 
 .LeftPanel{
   border: solid;
-  margin: 10px;
-  display: flex;
-  width: auto;
-  font-family:'Courier New', Courier, monospace;
-  flex-direction: row; 
-  background-color: gray;
+  width: 45vmin;
+  background-color: lightgray;
+  font-family: 'Roboto' sans-serif
 }
 
-.LeftPanelLeft{
-  flex-direction: column;
+.Lists{
 }
 
-.LeftPanel td{
-
-  border: solid;
-  width:20vmin;
-  border-width: 2px;
-  background-color: white;
-}
 
 
 .GraphName{
-  font-family: 'Courier New', Courier, monospace;
   color: black;
 }
 
 .Select{
-  width: 20vmin;
+  width: 100%;
   border: solid;
   border-color: black;
 }
@@ -99,13 +84,11 @@
 
 }
 
-.AddNodePanel button{
-  font-family: 'Courier New', Courier, monospace;
+.AddNodePanel Button{
+  width:33%;
+  margin:5px;
   border: solid;
-  width: 20%;
-  margin: 5px;
-  font-size: 25px; 
-  border-radius: 10px;
-  background-image: rgb(216, 219, 216) ;
+  background-color: rgb(255, 255, 255);
+  font-family: 'Roboto'
 }
 
