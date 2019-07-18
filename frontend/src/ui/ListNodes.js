@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
         maxWidth : 300,
     },
     nested : {
-        paddingLeft: theme.spacing(4)
+        paddingLeft: theme.spacing(4),
     }
 })) 
 
@@ -43,7 +43,7 @@ const ListNodes = (props) => {
 
     if (props.nodes[0]){
         let list = props.nodes.map(n => 
-            <ListItem button key = {n.id()} onClick = {clickHandler} id = {n.id()} className = {classes.nested}>
+            <ListItem  button key = {n.id()} onClick = {clickHandler} id = {n.id()} className = {classes.nested}>
                 <ListItemText  primary = {n.id()}>{n.data('name') +' '+ n.id()}/></ListItemText>
             </ListItem>
 

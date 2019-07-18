@@ -198,7 +198,10 @@ const clearElements = () => {
       props.postJson(graph)
       cy.nodes().unselect()
   }
+
+  
   return (
+    
   <div className = "Header" >
     <Header currName = {currName}></Header>
     <div className = 'Wrapper'>
@@ -215,7 +218,6 @@ const clearElements = () => {
      <div className = 'Lists'>
             <ListNodes/> 
             </div>
-            <StyleEditor/>
             </div>
             
     <div className= "App">
@@ -228,24 +230,30 @@ const clearElements = () => {
       
     <div className="Cy"id = 'cy'></div>
             <div className = 'AddNodePanel'>
+              <div className = 'AddNodePanelLeft'>
           <form onSubmit = {addNode}>
             <Button type= 'submit'>Add Node</Button>
+            
               <Select
               placeholder = 'ellipse'
-              className = 'AddNodePanel'
+              className = 'AddNodePanelLeftSelect'
               name = "shape"
               options = {shapes}
               >
               </Select>
               <Select
               placeholder = 'black'
-              className = 'AddNodePanel'
+              className = 'AddNodePanelLeftSelect'
               name= "color"
               options = {colors}
               ></Select>
           </form>
+          </div>
+          <div className = 'AddNodePanelRight'>
+          <StyleEditor/>
+          </div>
         </div>
-     
+        
     
       <div className= "Panel">
         <Button onClick ={saveGraph}>save</Button>
