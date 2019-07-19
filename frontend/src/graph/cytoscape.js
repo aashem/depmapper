@@ -58,7 +58,6 @@ const graph = (newCy) => {
             select: (ele) => {
               ele.select()
               ele.lock()
-              cy.resize()
             }
           },
           {
@@ -111,9 +110,7 @@ const graph = (newCy) => {
   
       cy.on('tap', (event) => {
         let evtTarget = event.target;
-        console.log(selectedNodes)
         if(evtTarget !== cy){
-            console.log(evtTarget.data())
           if(groupingList.length >= 1){
             groupingList[0].move({parent: evtTarget.id()})
             groupingList = []
@@ -135,6 +132,7 @@ const graph = (newCy) => {
                   cy.add({group:"edges", data:{ id: "e"+ selectedNodes[0].id()+selectedNodes[1].id(), source:selectedNodes[0].id(), target:selectedNodes[1].id(), name:"" }})
               }
               selectedNodes = []
+              cy.resize()
           }
         }
         } 

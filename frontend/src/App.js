@@ -13,6 +13,7 @@ import {shapeList, colorList} from './graph/nodeStyles'
 import StyleEditor from './ui/styleEditor'
 import jsonServices from './services/jsonServices'
 import Button from '@material-ui/core/Button'
+import ListEdges from './ui/ListEdges'
 //import dispatchTest from './graph/graphHandlers'
 
 //todo split app into smaller components
@@ -58,6 +59,9 @@ const App = (props) => {
         //Maps graph names to a list from the db to be read by the select component
         updateGraphNames()
         setStart(false)
+        cy.on('resize', (event) => {
+          updateElements()
+      })
       }
     }
   if(start){
@@ -80,6 +84,7 @@ const clearElements = () => {
     
   }
   
+ 
 
   const selectGraph = value => {
     cy.nodes().unselect()
@@ -217,6 +222,7 @@ const clearElements = () => {
               ></Select> 
      <div className = 'Lists'>
             <ListNodes/> 
+            <ListEdges/>
             </div>
             </div>
             

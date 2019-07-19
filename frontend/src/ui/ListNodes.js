@@ -25,7 +25,6 @@ const ListNodes = (props) => {
     const classes = useStyles()
     const [open, setOpen] = React.useState(true)
     let cy = props.cy
-    console.log(open)
 
     const openList = () => {
         setOpen(!open);
@@ -33,18 +32,14 @@ const ListNodes = (props) => {
 
     //todo show edges connected to the node when the table element is clicked
     const clickHandler = (event) => {
-        console.log(event.currentTarget.id)
         cy.nodes().unselect()
         cy.nodes(cy.nodes().filter(n => n.id() === event.currentTarget.id)).select()
-        let selected = cy.nodes(cy.nodes().filter(n => n.id() === event.currentTarget.id))
-        console.log(selected)
-       // setShow(true)
     }           
 
     if (props.nodes[0]){
         let list = props.nodes.map(n => 
             <ListItem  button key = {n.id()} onClick = {clickHandler} id = {n.id()} className = {classes.nested}>
-                <ListItemText  primary = {n.id()}>{n.data('name') +' '+ n.id()}/></ListItemText>
+                <ListItemText  primary = {n.data('name') || n.id()}></ListItemText>
             </ListItem>
 
             )
