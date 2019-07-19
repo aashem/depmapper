@@ -32,7 +32,7 @@ const ListNodes = (props) => {
         setOpen(!open);
     }
 
-    //todo show edges connected to the node when the table element is clicked
+   
     const clickHandler = (event) => {
         cy.nodes().unselect()
         cy.nodes(cy.nodes().filter(n => n.id() === event.currentTarget.id)).select()

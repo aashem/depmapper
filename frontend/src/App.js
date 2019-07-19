@@ -136,16 +136,19 @@ const clearElements = () => {
 
   const addNode = (event) => {
     event.preventDefault()
+    let id = cy.nodes().size()
  
       const createId = () => {
-        let id = cy.nodes().size()
         id = id + 1
         return id
       }
-      let id = createId()
-
+      id = createId()
+    while(cy.nodes().map(n => n.id()).includes(id.toString())){
+     id = createId()
+    }
+ 
     let added = cy.add({
-      data: { id: `${id}`+ currName , name: "" },
+      data: { id: `${id}` , name: "" },
       position: {
         x:200,
         y:200,
