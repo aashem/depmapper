@@ -7,7 +7,9 @@ import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import Collapse from '@material-ui/core/Collapse'
 import {makeStyles} from '@material-ui/core/styles'
-
+import Delete from '@material-ui/icons/Delete'
+import Create from '@material-ui/icons/Create'
+import IconButton from '@material-ui/core/IconButton'
 
 
 const useStyles = makeStyles(theme => ({
@@ -23,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 const ListNodes = (props) => {
     const classes = useStyles()
-    const [open, setOpen] = React.useState(true)
+    const [open, setOpen] = React.useState(false)
     let cy = props.cy
 
     const openList = () => {
@@ -34,12 +36,26 @@ const ListNodes = (props) => {
     const clickHandler = (event) => {
         cy.nodes().unselect()
         cy.nodes(cy.nodes().filter(n => n.id() === event.currentTarget.id)).select()
-    }           
+    }       
+    
+    const deleteNode = (event) => {
+        cy.nodes().unselect()
+        cy.nodes(cy.nodes().filter(n => n.id() === event.currentTarget.id)).remove()
+        cy.resize()
+    }
+
+  
 
     if (props.nodes[0]){
         let list = props.nodes.map(n => 
-            <ListItem  button key = {n.id()} onClick = {clickHandler} id = {n.id()} className = {classes.nested}>
+            <ListItem  key = {n.id()}  className = {classes.nested}>
                 <ListItemText  primary = {n.data('name') || n.id()}></ListItemText>
+                <IconButton onClick = {clickHandler} id = {n.id()}> 
+                    <Create></Create>
+                </IconButton>
+                <IconButton onClick = {deleteNode} id = {n.id()}>
+                    <Delete></Delete>
+                </IconButton>
             </ListItem>
 
             )

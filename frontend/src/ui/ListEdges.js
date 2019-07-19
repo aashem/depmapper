@@ -7,6 +7,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import Collapse from '@material-ui/core/Collapse'
 import {makeStyles} from '@material-ui/core/styles'
+import IconButton from '@material-ui/core/IconButton'
+import Delete from '@material-ui/icons/Delete'
 
 
 
@@ -22,18 +24,30 @@ const useStyles = makeStyles(theme => ({
 })) 
 
 const ListEdges = (props) => {
+    const cy = props.cy
     const classes = useStyles()
-    const [open, setOpen] = React.useState(true)
-    let cy = props.cy
+    const [open, setOpen] = React.useState(false)
 
     const openList = () => {
         setOpen(!open);
     }
+
+    const deleteEdge = (event) => {
+            cy.edges().unselect()
+            cy.edges(cy.edges().filter(n => n.id() === event.currentTarget.id)).remove()
+            cy.resize()
+       
+    }
+  
+
     if (props.edges[0]){
 
         let list = props.edges.map(e => 
             <ListItem button key = {e.id()} className = {classes.nested}>
                 <ListItemText primary = {e.data('name') || e.id()}></ListItemText>
+                <IconButton onClick = {deleteEdge} id = {e.id()}>
+                    <Delete></Delete>
+                </IconButton>
             </ListItem>
             )
 
