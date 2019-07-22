@@ -9,6 +9,7 @@ import Collapse from '@material-ui/core/Collapse'
 import {makeStyles} from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
 import Delete from '@material-ui/icons/Delete'
+import {itemStyle} from './styles/itemStyle'
 
 
 
@@ -38,12 +39,13 @@ const ListEdges = (props) => {
             cy.resize()
        
     }
-  
+
+
 
     if (props.edges[0]){
 
         let list = props.edges.map(e => 
-            <ListItem button key = {e.id()} className = {classes.nested}>
+            <ListItem button key = {e.id()} className = {classes.nested} style = {itemStyle}>
                 <ListItemText primary = {e.data('name') || e.id()}></ListItemText>
                 <IconButton onClick = {deleteEdge} id = {e.id()}>
                     <Delete></Delete>

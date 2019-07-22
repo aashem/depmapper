@@ -10,6 +10,7 @@ import {makeStyles} from '@material-ui/core/styles'
 import Delete from '@material-ui/icons/Delete'
 import Create from '@material-ui/icons/Create'
 import IconButton from '@material-ui/core/IconButton'
+import {itemStyle} from './styles/itemStyle'
 
 
 const useStyles = makeStyles(theme => ({
@@ -44,11 +45,13 @@ const ListNodes = (props) => {
         cy.resize()
     }
 
+   
+
   
 
     if (props.nodes[0]){
         let list = props.nodes.map(n => 
-            <ListItem  key = {n.id()}  className = {classes.nested}>
+            <ListItem  key = {n.id()}  className = {classes.nested} style = {itemStyle}>
                 <ListItemText  primary = {n.data('name') || n.id()}></ListItemText>
                 <IconButton onClick = {clickHandler} id = {n.id()}> 
                     <Create></Create>

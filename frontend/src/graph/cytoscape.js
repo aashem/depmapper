@@ -129,7 +129,7 @@ const graph = (newCy) => {
                   window.alert("Connection already exists")
               }else{
 
-                  cy.add({group:"edges", data:{ id: "e"+ selectedNodes[0].id()+selectedNodes[1].id(), source:selectedNodes[0].id(), target:selectedNodes[1].id(), name:"" }})
+                  cy.add({group:"edges", data:{ id: "e"+ selectedNodes[0].id()+selectedNodes[1].id(), source:selectedNodes[0].id(), target:selectedNodes[1].id(), name:`${selectedNodes[0].id()} -> ${selectedNodes[1].id()}` }})
               }
               selectedNodes = []
               cy.resize()

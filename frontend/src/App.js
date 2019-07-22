@@ -148,7 +148,7 @@ const clearElements = () => {
     }
  
     let added = cy.add({
-      data: { id: `${id}` , name: "" },
+      data: { id: `${id}` , name: `${id}` },
       position: {
         x:200,
         y:200,
