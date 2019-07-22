@@ -37,11 +37,13 @@ const App = (props) => {
   const [start,setStart] = useState(true)
   const [graphNames, setGraphNames] = useState([])
   const [currName, setCurrName] = useState('new')
+  const [initHandler, setInitHandler] = useState(true)
 
 
   useEffect(() => {
     //initialize cytoscape graph and set it to attribute cy
     setCy(graph())
+    
   },[])
 
   setTimeout(()=> {
@@ -61,9 +63,8 @@ const App = (props) => {
         //Maps graph names to a list from the db to be read by the select component
         updateGraphNames()
         setStart(false)
-        cy.on('resize', (event) => {
-          updateElements()
-      })
+        
+
       }
     }
   if(start){
@@ -74,7 +75,22 @@ const App = (props) => {
 
   }
 
-  const updateElements = () => {
+  const initHandlers = () => {
+    if (cy){
+    cy.on('resize', (event) => {
+        updateElements()
+    })
+    setInitHandler(false)
+  } else{
+    return
+  }
+}
+
+  if(initHandler){
+    initHandlers()
+  }
+
+ const updateElements = () => {
     props.initializeEdges(cy.edges())
     props.initializeNodes(cy.nodes())
     props.initializeTags(cy.nodes().map(n => n.data('tag')))
@@ -87,6 +103,9 @@ const clearElements = () => {
     
   }
   
+
+ 
+  
  
 
   const selectGraph = value => {
@@ -98,6 +117,7 @@ const clearElements = () => {
     setCurrName(name[0].name)
     loadGraph(newId)
     updateElements()
+    setInitHandler(true)
   }
   
   
@@ -175,6 +195,7 @@ const clearElements = () => {
       cy.destroy()
       setCy(graph(true))
       clearElements()
+      setInitHandler(true)
     }
  
   }
