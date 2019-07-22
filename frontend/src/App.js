@@ -5,6 +5,7 @@ import {postJson, initializeJson, updateJson, initJsonId, removeGraphId} from '.
 import {initCy} from './reducers/cyReducer'
 import {initializeNodes} from './reducers/nodeReducer'
 import {initializeEdges} from './reducers/edgeReducer'
+import {initializeTags} from './reducers/tagReducer'
 import Header from './ui/header'
 import graph from './graph/cytoscape'
 import './styles/App.css'
@@ -14,6 +15,7 @@ import StyleEditor from './ui/styleEditor'
 import jsonServices from './services/jsonServices'
 import Button from '@material-ui/core/Button'
 import ListEdges from './ui/ListEdges'
+import ListTags from './ui/listTags'
 //import dispatchTest from './graph/graphHandlers'
 
 //todo split app into smaller components
@@ -75,6 +77,7 @@ const App = (props) => {
   const updateElements = () => {
     props.initializeEdges(cy.edges())
     props.initializeNodes(cy.nodes())
+    props.initializeTags(cy.nodes().map(n => n.data('tag')))
   
   }
 
@@ -226,6 +229,7 @@ const clearElements = () => {
      <div className = 'Lists'>
             <ListNodes/> 
             <ListEdges/>
+            <ListTags/>
             </div>
             </div>
             
@@ -295,6 +299,7 @@ const mapDispatchToProps = {
   updateJson,
   initJsonId,
   removeGraphId,
+  initializeTags,
 }
 
 export default connect(

@@ -20,6 +20,7 @@ const graph = (newCy) => {
         style: [ // the stylesheet for the graph
           {
             selector: 'node',
+            data: 'tag',
             style: {
               'label': 'data(name)',
             }
@@ -47,9 +48,10 @@ const graph = (newCy) => {
         selector: "node",
         commands: [
           {
-            content:"Remove",
+            content:"Tag",
             select: (ele) => {
-              cy.remove(ele)
+              let tag = window.prompt('Tag name')
+              ele.data('tag', tag)
               cy.resize()
             }
           },
