@@ -102,11 +102,7 @@ const clearElements = () => {
     props.initializeNodes('')
     
   }
-  
 
- 
-  
- 
 
   const selectGraph = value => {
     cy.nodes().unselect()

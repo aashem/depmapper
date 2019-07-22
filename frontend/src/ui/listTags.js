@@ -9,9 +9,13 @@ const ListTags = (props) => {
     let tags = ''
 
     const selectTagged = (event) => {
-        let tagged = cy.nodes().filter(n => n.data('tag') === event.data)
-        tagged.select()
-        
+        if(event.data === 'No Tag'){
+            cy.nodes().style({visibility: 'visible'})
+        }else{
+        cy.nodes().style({visibility: 'visible'})
+        let tagged = cy.collection(cy.nodes().filter(n => n.data('tag') !== event.data))
+        tagged.style({visibility : 'hidden'})
+        }
     }
 
     const removeDuplicates = (tags) => {
@@ -22,11 +26,15 @@ const ListTags = (props) => {
     }
     tags = removeDuplicates(tags)
     tags = tags.map(t => t = {label: t , data: t})
- 
+    let empty = {label: 'No Tag', data: 'No Tag'}
+    tags.unshift(empty)
+    console.log(tags)
+
     return(<Select
     placeholder = 'Tags'
-    options = {tags}
-    onChange = {selectTagged}>
+    options = {tags}  
+    onChange = {selectTagged}
+    defaultValue = {tags[0]}>
     </Select>)
 }
 

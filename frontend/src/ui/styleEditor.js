@@ -12,6 +12,7 @@ const StyleEditor = (props) => {
     let cy = props.cy
     if (cy){
         cy.once('select', (event) => {
+            console.log(event.target)
             setHidden(false)
             setSelected(event.target)
             setActiveNode(event.target.id())
