@@ -13,12 +13,19 @@ const ListTags = (props) => {
             cy.nodes().style({visibility: 'visible'})
         }else{
         cy.nodes().style({visibility: 'visible'})
-        let tagged = cy.collection(cy.nodes().filter(n => n.data('tag') !== event.data))
-        tagged.style({visibility : 'hidden'})
+        let notTagged = cy.collection(cy.nodes().filter(n => n.data('tag') !== event.data))
+        let tagged = cy.collection(cy.nodes().filter(n => n.data('tag') === event.data ))
+        notTagged.style({visibility : 'hidden'})
+        tagged.children().style({visibility: 'visible'})
+
         }
-    }
+    }   
 
     const removeDuplicates = (tags) => {
+        if(tags){
+            tags = tags.filter(t => t !== undefined)
+            console.log(tags)
+        }
         return[...new Set(tags)];
     }
     if(cy ){
@@ -28,7 +35,7 @@ const ListTags = (props) => {
     tags = tags.map(t => t = {label: t , data: t})
     let empty = {label: 'No Tag', data: 'No Tag'}
     tags.unshift(empty)
-    console.log(tags)
+ 
 
     return(<Select
     placeholder = 'Tags'

@@ -42,9 +42,10 @@ const StyleEditor = (props) => {
     if (!hidden){
     return (
         <div>
-            <h2>{activeNode}</h2>
-            <h3>Color:</h3>
+            <h2>Selcted Node : {activeNode}</h2>
+            <p>Color</p> 
             <input id="color" type="color" onChange={changeColor}/>
+            <p></p>
             <Select
             name = "color"
             onChange = {changeColor}

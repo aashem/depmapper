@@ -246,6 +246,8 @@ const clearElements = () => {
      <div className = 'Lists'>
             <ListNodes/> 
             <ListEdges/>
+            <hr></hr>
+            Filter Tag
             <ListTags/>
             </div>
             </div>
