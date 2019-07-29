@@ -1,56 +1,46 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import Select from 'react-select'
 import {colorList} from '../graph/nodeStyles'
 
 const StyleEditor = (props) => {
-    const [activeNode, setActiveNode] = useState('')
-    const [currColor, setCurrColor] = useState('')
-    const [selected, setSelected] = useState('')
-    const [hidden, setHidden] = useState(true)
     let colors = colorList()
     let cy = props.cy
-    if (cy){
-        cy.once('select', (event) => {
-            console.log(event.target)
-            setHidden(false)
-            setSelected(event.target)
-            setActiveNode(event.target.id())
-            setCurrColor(event.target.style('background-color'))
-            event.target.style({"border-color": "purple", "border-style" : "solid", "border-width" : "8px" })
-        })
-        cy.on('unselect', (event) => {
-            setHidden(true)
-            setActiveNode('')
-            setCurrColor('')
-            setSelected('')
-   
-            event.target.style({"border-color" : 'black', "border-style" : "solid", "border-width" : "2px"})
-        })
-    }
+    let activeEle = props.activeEle
+
+ 
+
 
     const changeColor = (event) => {
-        if(selected){
-            cy.style().selector('node#' + selected.id()).style({backgroundColor: event.value || event.target.value}).update()
-            setCurrColor(event.value)
+        if(activeEle){
+            cy.style().selector('node#' + activeEle.id()).style({backgroundColor: event.value || event.target.value}).update()
         }
     
     }
 
-  
-    
-    if (!hidden){
+    const changeDescription = (event) => {
+        activeEle.data('desc', event.target.value)
+    }
+
+   
+   
+    if (activeEle[0]){
     return (
         <div>
-            <h2>Selcted Node : {activeNode}</h2>
-            <p>Color</p> 
+            <h2>Selcted Node: {activeEle[0].data('name')} </h2>
             <input id="color" type="color" onChange={changeColor}/>
-            <p></p>
+            <textarea
+            maxLength = '255'
+            cols = '30'
+            rows= '3'
+            onChange = {changeDescription}
+            defaultValue = {activeEle[0] ? activeEle.data('desc') : 'description'}
+            name = 'text'
+            ></textarea>
             <Select
             name = "color"
             onChange = {changeColor}
             options={colors}
-            value = {currColor}
             placeholder = 'color'
             >    
             </Select>
@@ -64,7 +54,8 @@ const StyleEditor = (props) => {
 
 const mapStateToProps = state => {
     return {
-        cy: state.cy
+        cy: state.cy,
+        activeEle: state.activeElement
     }
 }
 

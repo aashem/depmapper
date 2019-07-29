@@ -17,7 +17,7 @@ const ListTags = (props) => {
         let tagged = cy.collection(cy.nodes().filter(n => n.data('tag') === event.data ))
         notTagged.style({visibility : 'hidden'})
         tagged.children().style({visibility: 'visible'})
-
+            
         }
     }   
 

@@ -16,6 +16,7 @@ import jsonServices from './services/jsonServices'
 import Button from '@material-ui/core/Button'
 import ListEdges from './ui/ListEdges'
 import ListTags from './ui/listTags'
+import {setActiveElement} from './reducers/activeElementReducer'
 //import dispatchTest from './graph/graphHandlers'
 
 //todo split app into smaller components
@@ -80,6 +81,21 @@ const App = (props) => {
     cy.on('resize', (event) => {
         updateElements()
     })
+
+        const handlers = () => {
+            cy.on('select', (event) => {
+               props.setActiveElement(event.target)
+                event.target.style({"border-color": "purple", "border-style" : "solid", "border-width" : "8px" })
+             
+            })
+            cy.on('unselect', (event) => {
+              props.setActiveElement('')
+                event.target.style({"border-color" : 'black', "border-style" : "solid", "border-width" : "2px"})
+            })
+        }
+
+        handlers()
+      
     setInitHandler(false)
   } else{
     return
@@ -319,6 +335,7 @@ const mapDispatchToProps = {
   initJsonId,
   removeGraphId,
   initializeTags,
+  setActiveElement,
 }
 
 export default connect(
