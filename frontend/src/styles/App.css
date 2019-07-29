@@ -94,14 +94,22 @@
 }
 
 .AddNodePanelRight{
+  display: flex;
   margin-top: -5px;
   padding-left: 20px;
   padding-right: 20px;
   margin-right: 5px;
-  line-height: 10px;
-  width: 46%;
+  height:100%;
+  width: auto;
   background-color: gray;
   border: solid;
+}
+
+.NodeEditor{
+  width: 20%;
+}
+.NodeDesc{
+  width: 80%;
 }
 
 .AddNodePanel Button{

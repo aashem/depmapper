@@ -297,7 +297,7 @@ const clearElements = () => {
               ></Select>
           </form>
           </div>
-          <div className = 'AddNodePanelRight'>
+          <div>
           <StyleEditor/>
           </div>
         </div>
