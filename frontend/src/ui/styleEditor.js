@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 const StyleEditor = (props) => {
     let cy = props.cy
     let activeEle = props.activeEle
+    console.log(activeEle)
 
  
     const toHex = (rgb) => {

@@ -34,10 +34,13 @@ const ListNodes = (props) => {
     }
 
    
+    /*
+    currently not working properly
+
     const clickHandler = (event) => {
         cy.nodes().unselect()
         cy.nodes(cy.nodes().filter(n => n.id() === event.currentTarget.id)).select()
-    }       
+    }       */
     
     const deleteNode = (event) => {
         cy.nodes().unselect()
@@ -53,9 +56,9 @@ const ListNodes = (props) => {
         let list = props.nodes.map(n => 
             <ListItem  key = {n.id()}  className = {classes.nested} style = {itemStyle}>
                 <ListItemText  primary = {n.data('name') || n.id()}></ListItemText>
-                <IconButton onClick = {clickHandler} id = {n.id()}> 
+                {/*<IconButton onClick = {clickHandler} id = {n.id()}> 
                     <Create></Create>
-                </IconButton>
+        </IconButton>*/}
                 <IconButton onClick = {deleteNode} id = {n.id()}>
                     <Delete></Delete>
                 </IconButton>
