@@ -204,9 +204,8 @@ const clearElements = () => {
       window.alert(`graph ${newName} exists already`)
     }else{
       setCurrName(newName)
-      cy.destroy()
-      setCy(graph(true))
       clearElements()
+      cy.nodes().remove()
       setInitHandler(true)
     }
  

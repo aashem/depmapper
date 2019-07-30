@@ -9,20 +9,17 @@ const StyleEditor = (props) => {
 
  
     const toHex = (rgb) => {
-        let values = Object.values(rgb)
-        let firstFilter = values.filter(o => o !== undefined)
+        let firstFilter = Object.values(rgb).filter(o => o !== undefined)
         let secondFilter = firstFilter.filter(o => o.name === 'background-color')
-        let convertable = secondFilter[0].value
-        let converted = convertable.map(g => g.toString(16))
+        let converted = secondFilter[0].value.map(g => g.toString(16))
         converted.unshift('#')
-        let value = [...converted]
-        return value.join('')
+        return converted.join('')
     
     } 
 
     const changeColor = (event) => {
         if(activeEle){
-            cy.style().selector('node#' + activeEle.id()).style({backgroundColor: event.value || event.target.value}).update()
+            cy.style().selector('node#' + activeEle.id()).style({backgroundColor: event.target.value}).update()
             
         }
     
