@@ -13,7 +13,7 @@ const ListTags = (props) => {
             cy.nodes().style({visibility: 'visible'})
         }else{
         cy.nodes().style({visibility: 'visible'})
-        let notTagged = cy.collection(cy.nodes().filter(n => n.data('tag') !== event.data))
+        let notTagged = cy.collection(cy.nodes().filter(n => n.data('tag') !== event.data && n.isChildless() === true ))
         let tagged = cy.collection(cy.nodes().filter(n => n.data('tag') === event.data ))
         notTagged.style({visibility : 'hidden'})
         tagged.children().style({visibility: 'visible'})
@@ -24,7 +24,6 @@ const ListTags = (props) => {
     const removeDuplicates = (tags) => {
         if(tags){
             tags = tags.filter(t => t !== undefined)
-            console.log(tags)
         }
         return[...new Set(tags)];
     }

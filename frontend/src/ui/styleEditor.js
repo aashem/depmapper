@@ -1,11 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import Select from 'react-select'
 
 
 const StyleEditor = (props) => {
+    let colors = [{value: 'yellow', label: 'yellow'}]
     let cy = props.cy
     let activeEle = props.activeEle
-    console.log(activeEle)
 
  
     const toHex = (rgb) => {
@@ -19,9 +20,13 @@ const StyleEditor = (props) => {
 
     const changeColor = (event) => {
         if(activeEle){
-            cy.style().selector('node#' + activeEle.id()).style({backgroundColor: event.target.value}).update()
+            console.log(event.value)
+            cy.style().selector('node#'+ activeEle.id()).style({backgroundColor: event.value || event.target.value}).update()
+            console.log(activeEle.json())
+    
+      
             
-        }
+        }       
     
     }
 
@@ -34,12 +39,19 @@ const StyleEditor = (props) => {
     return (
     <div  className = 'AddNodePanelRight'>
         <div className = 'NodeEditor'> 
-            <h2>Node{activeEle[0].data('name')} </h2>
+            <h2>{activeEle[0].data('name')} </h2>
             <input id="color" 
             type="color"
             onChange={changeColor}
             defaultValue = {activeEle[0]._private.style ? toHex(activeEle[0]._private.style) : '0000ff'}
              />
+            <Select
+            options = {colors}
+            name = 'color'
+            onChange = {changeColor}
+            >
+
+            </Select>
         </div>
         <div className = 'NodeDesc'>
             <p>Description</p>
