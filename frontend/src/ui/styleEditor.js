@@ -19,13 +19,10 @@ const StyleEditor = (props) => {
     } 
 
     const changeColor = (event) => {
+
         if(activeEle){
-            console.log(event.value)
-            cy.style().selector('node#'+ activeEle.id()).style({backgroundColor: event.value || event.target.value}).update()
-            console.log(activeEle.json())
-    
-      
-            
+            activeEle.data('background-color' , event.value || event.target.value)
+            activeEle.style({backgroundColor : activeEle.data('background-color')})
         }       
     
     }

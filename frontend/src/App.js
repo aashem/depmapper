@@ -130,6 +130,7 @@ const clearElements = () => {
     loadGraph(newId)
     updateElements()
     setInitHandler(true)
+    cy.nodes().forEach(e => e.style({backgroundColor: e.data('background-color')}))
   }
   
   
@@ -189,6 +190,7 @@ const clearElements = () => {
         y:200,
       },
     })
+    added.addClass('1')
     //refactor
     //create new stylesheet for each node so properties are saved into the json
     cy.style().selector('node#' + added.id())
