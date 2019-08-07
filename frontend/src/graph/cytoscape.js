@@ -9,6 +9,9 @@ const graph = (newCy) => {
     if(!newCy){
       cytoscape.use(cxtmenu)
     }
+   
+  
+
   
       let cy = window.cy = cytoscape({
         container: document.getElementById('cy'),

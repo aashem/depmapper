@@ -1,11 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Select from 'react-select'
+import {colorList} from '../graph/nodeStyles'
 
 
 const StyleEditor = (props) => {
-    let colors = [{value: 'yellow', label: 'yellow'}]
-    let cy = props.cy
+    let colors = colorList()
     let activeEle = props.activeEle
 
  
@@ -23,6 +23,7 @@ const StyleEditor = (props) => {
         if(activeEle){
             activeEle.data('background-color' , event.value || event.target.value)
             activeEle.style({backgroundColor : activeEle.data('background-color')})
+
         }       
     
     }

@@ -1,6 +1,6 @@
 * .App{
   width: 100%;
-  background-color: rgb(1, 1, 192);
+  background-color: rgb(60, 60, 77);
 }
 
 .Wrapper{
@@ -16,7 +16,7 @@
 }
 .UpperButtons{
   display: flex;
-  background-color: blue;
+  background-color: rgb(86, 86, 98);
 }
 
 .UpperButtons Button{
@@ -97,20 +97,20 @@
   display: flex;
   margin-top: -5px;
   padding-left: 20px;
-  padding-right: 20px;
+  padding-right: 100px;
   margin-right: 5px;
   height:100%;
-  width: auto;
+  width: 70;
   background-color: gray;
   border: solid;
 }
 
 .NodeEditor{
-  width: 20%;
+  width: 40%;
 }
 .NodeDesc{
-  width: 80%;
-  margin: 5px;
+  width: 70%;
+  margin-left: 10px;
 }
 
 .AddNodePanel Button{

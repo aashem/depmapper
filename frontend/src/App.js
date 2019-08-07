@@ -30,23 +30,36 @@ import {setActiveElement} from './reducers/activeElementReducer'
 LOW PRIORITY: * https everything (edited) 
 * at startup - display no graph, what for selection */
 
+
+
 const App = (props) => {
   const shapes = shapeList()
   const colors = colorList()
   const [cy, setCy] = useState('')
   const [id, setId] = useState('0')
-  const [start,setStart] = useState(true)
   const [graphNames, setGraphNames] = useState([])
   const [currName, setCurrName] = useState('new')
   const [initHandler, setInitHandler] = useState(true)
 
+  const startFunction = () => {
+    props.initCy(cy)
+    props.initializeJson()
+    if(props.graph){
+      //cy.json() is cytoscape method which returns the graph configuration in json
+      //cy.json(props.graph) method configures graph with the json'
+      //Maps graph names to a list from the db to be read by the select component
+      updateGraphNames()
+    }
+  }
 
   useEffect(() => {
     //initialize cytoscape graph and set it to attribute cy
-    setCy(graph())
-    
+    startFunction()
+    setCy(graph()) 
+  // eslint-disable-next-line react-hooks/exhaustive-deps, useEffect gives lint error for startFunction because it can change it values, but because it is run only once the error is pointless.
   },[])
 
+ 
   setTimeout(()=> {
     updateGraphNames()
   },1000)
@@ -57,50 +70,29 @@ const App = (props) => {
     }
   }
 
-    const startFunction = () => {
-      if(props.graph){
-          //cy.json() is cytoscape method which returns the graph configuration in json
-            //cy.json(props.graph) method configures graph with the json'
-        //Maps graph names to a list from the db to be read by the select component
-        updateGraphNames()
-        setStart(false)
-        
-
-      }
-    }
-  if(start){
-    //GET cytoscape json config from db and insert it into redux state.json
-    props.initCy(cy)
-    props.initializeJson()
-    startFunction()
-
+  const handlers = () => {
+    cy.on('select', (event) => {
+      props.setActiveElement(event.target)
+      console.log(event.target)
+        event.target.style({"border-color": "purple", "border-style" : "solid", "border-width" : "8px" })
+    })
+    cy.on('unselect', (event) => {
+      props.setActiveElement('')
+        event.target.style({"border-color" : 'black', "border-style" : "solid", "border-width" : "2px"})
+    })
   }
 
   const initHandlers = () => {
     if (cy){
-    cy.on('resize', (event) => {
+      cy.on('resize', (event) => {
         updateElements()
-    })
-
-        const handlers = () => {
-            cy.on('select', (event) => {
-               props.setActiveElement(event.target)
-                event.target.style({"border-color": "purple", "border-style" : "solid", "border-width" : "8px" })
-             
-            })
-            cy.on('unselect', (event) => {
-              props.setActiveElement('')
-                event.target.style({"border-color" : 'black', "border-style" : "solid", "border-width" : "2px"})
-            })
-        }
-
-        handlers()
-      
+      })
+    handlers()
     setInitHandler(false)
-  } else{
-    return
+    }else{
+      return
+    }
   }
-}
 
   if(initHandler){
     initHandlers()
@@ -113,7 +105,7 @@ const App = (props) => {
   
   }
 
-const clearElements = () => {
+  const clearElements = () => {
     props.initializeEdges('')
     props.initializeNodes('')
     
@@ -154,17 +146,13 @@ const clearElements = () => {
   }
 
   const loadGraph = (newId) => {
-    let graph
+    let cygraph
     if(id !== '0'|| typeof newId === typeof id){
-      if (typeof newId === typeof id){
-        let id = newId
-        graph = props.graph.filter(j => j.id === id)
-        console.log(graph[0].json)
-        cy.json(graph[0].json)
-        }else{
-          graph = props.graph.filter(j => j.id === id)
-          cy.json(graph[0].json)
-          }
+      let id = newId
+      cygraph = props.graph.filter(j => j.id === id)
+      console.log(cygraph[0].json)
+      console.log('here')
+      cy.json(cygraph[0].json)
     }
     updateElements()
     //dispatchTest()
@@ -178,6 +166,7 @@ const clearElements = () => {
         id = id + 1
         return id
       }
+
       id = createId()
     while(cy.nodes().map(n => n.id()).includes(id.toString())){
      id = createId()
@@ -190,6 +179,7 @@ const clearElements = () => {
         y:200,
       },
     })
+
     added.addClass('1')
     //refactor
     //create new stylesheet for each node so properties are saved into the json
@@ -215,11 +205,11 @@ const clearElements = () => {
 
   const deleteGraph = () => {
     if(id !== '0'){
-    if(window.confirm(`Delete ${currName} from app & database`)){
-      cy.destroy()
-      setCy(graph(true))
-      props.removeGraphId(id)
-      setCurrName('new')
+      if(window.confirm(`Delete ${currName} from app & database`)){
+        cy.destroy()
+        setCy(graph(true))
+        props.removeGraphId(id)
+        setCurrName('new')
       }else{
         console.log("no deletion")
       }
@@ -249,10 +239,10 @@ const clearElements = () => {
     
   <div className = "Header" >
     <Header currName = {currName}></Header>
-    <div className = 'Wrapper'>
-    <div className = "LeftPanel">  
-    
-      <h3 className = "GraphName">Graph: {currName} </h3>
+      <div className = 'Wrapper'>
+        <div className = "LeftPanel">  
+            <h3 className = "GraphName">Graph: {currName} </h3>
+
               <Select 
                 placeholder = "Graph"
                 className = "Select"
@@ -260,14 +250,15 @@ const clearElements = () => {
                 onChange = {selectGraph}
                 options = {graphNames}
               ></Select> 
-     <div className = 'Lists'>
+
+          <div className = 'Lists'>
             <ListNodes/> 
             <ListEdges/>
             <hr></hr>
             Filter Tag
             <ListTags/>
-            </div>
-            </div>
+          </div>
+        </div>
             
     <div className= "App">
       <div className = "UpperButtons">
@@ -278,40 +269,38 @@ const clearElements = () => {
       
       
     <div className="Cy"id = 'cy'></div>
-            <div className = 'AddNodePanel'>
-              <div className = 'AddNodePanelLeft'>
+      <div className = 'AddNodePanel'>
+        <div className = 'AddNodePanelLeft'>
           <form onSubmit = {addNode}>
             <Button type= 'submit'>Add Node</Button>
             
               <Select
-              placeholder = 'ellipse'
-              className = 'AddNodePanelLeftSelect'
-              name = "shape"
-              options = {shapes}
+                placeholder = 'ellipse'
+                className = 'AddNodePanelLeftSelect'
+                name = "shape"
+                options = {shapes}
               >
+
               </Select>
               <Select
-              placeholder = 'black'
-              className = 'AddNodePanelLeftSelect'
-              name= "color"
-              options = {colors}
+                placeholder = 'black'
+                className = 'AddNodePanelLeftSelect'
+                name= "color"
+                options = {colors}
               ></Select>
+
           </form>
-          </div>
-          <div>
-          <StyleEditor/>
-          </div>
         </div>
-        
-    
-      <div className= "Panel">
-        <Button onClick ={saveGraph}>save</Button>
-        <Button onClick = {loadGraph}>load</Button>
-      
-      
-      </div>      
+          <div>
+            <StyleEditor/>
+          </div>
+      </div>
+        <div className= "Panel">
+          <Button onClick ={saveGraph}>save</Button>
+          <Button onClick = {loadGraph}>load</Button>
+        </div>      
     </div>
-  </div>
+    </div>
   </div>
 
   )
