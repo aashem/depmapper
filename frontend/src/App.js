@@ -41,8 +41,8 @@ const App = (props) => {
   const [currName, setCurrName] = useState('new')
   const [initHandler, setInitHandler] = useState(true)
 
-  const startFunction = () => {
-    props.initCy(cy)
+  const startFunction = (graph) => {
+    props.initCy(graph)
     props.initializeJson()
     if(props.graph){
       //cy.json() is cytoscape method which returns the graph configuration in json
@@ -54,8 +54,10 @@ const App = (props) => {
 
   useEffect(() => {
     //initialize cytoscape graph and set it to attribute cy
-    startFunction()
-    setCy(graph()) 
+    let cygraph = graph()
+    setCy(cygraph) 
+    startFunction(cygraph)
+  
   // eslint-disable-next-line react-hooks/exhaustive-deps, useEffect gives lint error for startFunction because it can change it values, but because it is run only once the error is pointless.
   },[])
 

@@ -28,7 +28,7 @@
 }  
 
 .Panel{
-  background-color: blue;
+  background-color: rgb(88, 88, 110);
   display: flex;
   width: auto;
   height: 8vmin;
@@ -76,6 +76,7 @@
 
 .AddNodePanel{
   font-family: 'Roboto' sans-serif;
+  margin-bottom: 10px;
   display: flex;
   height: 160px;
   padding: 5px;
