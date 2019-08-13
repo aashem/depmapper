@@ -1,5 +1,4 @@
 import React,{useEffect, useState} from 'react';
-import Select from 'react-select'
 import {connect} from 'react-redux'
 import {postJson, initializeJson, updateJson, initJsonId, removeGraphId} from './reducers/jsonReducer'
 import {initCy} from './reducers/cyReducer'
@@ -17,6 +16,7 @@ import ListEdges from './ui/ListEdges'
 import ListTags from './ui/listTags'
 import {setActiveElement} from './reducers/activeElementReducer'
 import AddNode from './components/addNode'
+import SelectGraph from './components/selectGraph'
 //import dispatchTest from './graph/graphHandlers'
 
 //todo split app into smaller components
@@ -113,20 +113,6 @@ const App = (props) => {
     props.initializeNodes('')
     
   }
-
-
-  const selectGraph = value => {
-    cy.nodes().unselect()
-    cy.nodes().remove()
-    let newId = value.value
-    setId(newId)
-    let name = props.graph.filter(j => j.id === newId)
-    setCurrName(name[0].name)
-    loadGraph(newId)
-    updateElements()
-    setInitHandler(true)
-    cy.nodes().forEach(e => e.style({backgroundColor: e.data('background-color')}))
-  }
   
   
   const saveGraph = async() => {
@@ -216,14 +202,12 @@ const App = (props) => {
       <div className = 'Wrapper'>
         <div className = "LeftPanel">  
             <h3 className = "GraphName">Graph: {currName} </h3>
-
-              <Select 
-                placeholder = "Graph"
-                className = "Select"
-                name = "graph"
-                onChange = {selectGraph}
-                options = {graphNames}
-              ></Select> 
+              <SelectGraph graphs = {graphNames} cy = {cy} update = {updateElements} setId = {setId}  setCurrName = {setCurrName}
+                loadGraph = {loadGraph}
+                setInitHandler = {setInitHandler}
+                graphDispatch = {props.graph}
+                />
+           
 
           <div className = 'Lists'>
             <ListNodes/> 
@@ -240,14 +224,10 @@ const App = (props) => {
         <Button onClick = {deleteGraph} className = "UpperButtons">Delete Graph</Button>
         <Button onClick = {renameGraph} className = "UpperButtons">Rename Graph</Button>
       </div>
-      
-      
     <div className="Cy"id = 'cy'></div>
       <div className = 'AddNodePanel'>
         <div className = 'AddNodePanelLeft'>
          <AddNode cy={cy} update = {updateElements}/>
-
-         
         </div>
           <div>
             <StyleEditor/>

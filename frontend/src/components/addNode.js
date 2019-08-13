@@ -6,7 +6,6 @@ import {shapeList, colorList} from '../graph/nodeStyles'
 const AddNode = (props) => {
     const shapes = shapeList()
     const colors = colorList()
-    console.log(props)
     let cy = props.cy
     let updateElements = props.update
 
