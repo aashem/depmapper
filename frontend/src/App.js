@@ -10,13 +10,13 @@ import Header from './ui/header'
 import graph from './graph/cytoscape'
 import './styles/App.css'
 import ListNodes from './ui/ListNodes'
-import {shapeList, colorList} from './graph/nodeStyles'
 import StyleEditor from './ui/styleEditor'
 import jsonServices from './services/jsonServices'
 import Button from '@material-ui/core/Button'
 import ListEdges from './ui/ListEdges'
 import ListTags from './ui/listTags'
 import {setActiveElement} from './reducers/activeElementReducer'
+import AddNode from './components/addNode'
 //import dispatchTest from './graph/graphHandlers'
 
 //todo split app into smaller components
@@ -33,8 +33,8 @@ LOW PRIORITY: * https everything (edited)
 
 
 const App = (props) => {
-  const shapes = shapeList()
-  const colors = colorList()
+ 
+
   const [cy, setCy] = useState('')
   const [id, setId] = useState('0')
   const [graphNames, setGraphNames] = useState([])
@@ -54,6 +54,7 @@ const App = (props) => {
 
   useEffect(() => {
     //initialize cytoscape graph and set it to attribute cy
+  
     let cygraph = graph()
     setCy(cygraph) 
     startFunction(cygraph)
@@ -160,37 +161,8 @@ const App = (props) => {
     //dispatchTest()
   }
 
-  const addNode = (event) => {
-    event.preventDefault()
-    let id = cy.nodes().size()
  
-      const createId = () => {
-        id = id + 1
-        return id
-      }
 
-      id = createId()
-    while(cy.nodes().map(n => n.id()).includes(id.toString())){
-     id = createId()
-    }
- 
-    let added = cy.add({
-      data: { id: `${id}` , name: `${id}` },
-      position: {
-        x:200,
-        y:200,
-      },
-    })
-
-    added.addClass('1')
-    //refactor
-    //create new stylesheet for each node so properties are saved into the json
-    cy.style().selector('node#' + added.id())
-      .style({'background-color' : `${event.target.color.value}` || 'black', 'shape' : `${event.target.shape.value}` || 'ellipse', 'border-style' : 'solid', 'border-width' : '2px'})
-        .update()
-
-    updateElements()
-  }
 
   const newGraph = () => {
     let newName = window.prompt("New Graph Name:")
@@ -273,25 +245,9 @@ const App = (props) => {
     <div className="Cy"id = 'cy'></div>
       <div className = 'AddNodePanel'>
         <div className = 'AddNodePanelLeft'>
-          <form onSubmit = {addNode}>
-            <Button type= 'submit'>Add Node</Button>
-            
-              <Select
-                placeholder = 'ellipse'
-                className = 'AddNodePanelLeftSelect'
-                name = "shape"
-                options = {shapes}
-              >
+         <AddNode cy={cy} update = {updateElements}/>
 
-              </Select>
-              <Select
-                placeholder = 'black'
-                className = 'AddNodePanelLeftSelect'
-                name= "color"
-                options = {colors}
-              ></Select>
-
-          </form>
+         
         </div>
           <div>
             <StyleEditor/>
