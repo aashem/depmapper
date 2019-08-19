@@ -33,8 +33,6 @@ LOW PRIORITY: * https everything (edited)
 
 
 const App = (props) => {
- 
-
   const [cy, setCy] = useState('')
   const [id, setId] = useState('0')
   const [graphNames, setGraphNames] = useState([])
@@ -146,10 +144,7 @@ const App = (props) => {
     updateElements()
     //dispatchTest()
   }
-
- 
-
-
+  
   const newGraph = () => {
     let newName = window.prompt("New Graph Name:")
     if(props.graph.map(g => g.name).includes(newName)){
@@ -207,8 +202,6 @@ const App = (props) => {
                 setInitHandler = {setInitHandler}
                 graphDispatch = {props.graph}
                 />
-           
-
           <div className = 'Lists'>
             <ListNodes/> 
             <ListEdges/>
@@ -217,7 +210,6 @@ const App = (props) => {
             <ListTags/>
           </div>
         </div>
-            
     <div className= "App">
       <div className = "UpperButtons">
         <Button onClick = {newGraph} className = "UpperButtons">New Graph</Button>

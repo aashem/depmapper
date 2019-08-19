@@ -2,7 +2,7 @@ import Axios from 'axios'
 
 
 //PORT
-const url = "http://localhost:3001/api/graphs"
+const url = "http://localhost:3001/api/mapping/list"
 
 const getAll = async () => {
     const response = await Axios.get(url)
