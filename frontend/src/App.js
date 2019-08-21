@@ -10,7 +10,7 @@ import graph from './graph/cytoscape'
 import './styles/App.css'
 import ListNodes from './ui/ListNodes'
 import StyleEditor from './ui/styleEditor'
-import jsonServices from './services/jsonServices'
+import {SaveGraph} from './components/graphHelpers'
 import Button from '@material-ui/core/Button'
 import ListEdges from './ui/ListEdges'
 import ListTags from './ui/listTags'
@@ -52,7 +52,7 @@ const App = (props) => {
 
   useEffect(() => {
     //initialize cytoscape graph and set it to attribute cy
-  
+
     let cygraph = graph()
     setCy(cygraph) 
     startFunction(cygraph)
@@ -113,24 +113,7 @@ const App = (props) => {
   }
   
   
-  const saveGraph = async() => {
   
-    let graph = {
-      json: cy.json(),
-      name: currName,
-    }
-      if(props.graph.map(g => g.name).includes(graph.name)){
-        if(window.confirm(`Already graph named ${graph.name} overwrite?`)){
-          let targetGraph = await jsonServices.getByName(currName)
-          let id = targetGraph[0].id
-          props.updateJson(id, graph)
-        }
-      }else{
-        props.postJson(graph)
-      }
-   
-   
-  }
 
   const loadGraph = (newId) => {
     let cygraph
@@ -226,7 +209,7 @@ const App = (props) => {
           </div>
       </div>
         <div className= "Panel">
-          <Button onClick ={saveGraph}>save</Button>
+          <SaveGraph cy= {cy} currName = {currName} propsGraph = {props.graph} postJson = {props.postJson} updateJson = {props.updateJson}/>
           <Button onClick = {loadGraph}>load</Button>
         </div>      
     </div>
