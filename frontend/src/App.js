@@ -10,7 +10,7 @@ import graph from './graph/cytoscape'
 import './styles/App.css'
 import ListNodes from './ui/ListNodes'
 import StyleEditor from './ui/styleEditor'
-import {SaveGraph, NewGraph, DeleteGraph} from './components/graphHelpers'
+import {SaveGraph, NewGraph, DeleteGraph, RenameGraph} from './components/graphHelpers'
 import Button from '@material-ui/core/Button'
 import ListEdges from './ui/ListEdges'
 import ListTags from './ui/listTags'
@@ -126,22 +126,6 @@ const App = (props) => {
     //dispatchTest()
   }
   
-
-  const renameGraph = () => {
-    let name = window.prompt('Name: ')
-    let graph = {
-      json: cy.json(),
-      name: name,
-    } 
-      if(id !== '0'){
-        props.removeGraphId(id)
-      }
-      setCurrName(name)
-      props.postJson(graph)
-      cy.nodes().unselect()
-  }
-
-  
   return (
     
   <div className = "Header" >
@@ -166,7 +150,7 @@ const App = (props) => {
       <div className = "UpperButtons">
         <NewGraph stateGraph = {props.graph} cy = {cy} setCurrName = {setCurrName} clearElements = {clearElements} setInitHandler = {setInitHandler}/>
         <DeleteGraph cy = {cy} initGraph = {graph} setCurrName = {setCurrName} setCy = {setCy} clearElements = {clearElements} removeGraphId = {props.removeGraphId} id = {id}/>
-        <Button onClick = {renameGraph} className = "UpperButtons">Rename Graph</Button>
+        <RenameGraph cy = {cy} id = {id} removeGraphId = {props.removeGraphId} setCurrName = {setCurrName} postJson = {props.postJson}/>
       </div>
     <div className="Cy"id = 'cy'></div>
       <div className = 'AddNodePanel'>

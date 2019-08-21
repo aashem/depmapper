@@ -85,3 +85,29 @@ export const SaveGraph = (props) => {
 
     return <Button onClick = {deleteGraph} className = "UpperButtons">Delete Graph</Button>
   }
+
+  
+ export const RenameGraph = (props) => {
+    let id = props.id
+    let cy = props.cy
+    let removeGraphId = props.removeGraphId
+    let setCurrName = props.setCurrName
+    let postJson = props.postJson
+
+    const renameGraph = () => {
+    if (cy){
+    let name = window.prompt('Name: ')
+    let graph = {
+      json: cy.json(),
+      name: name,
+    } 
+      if(id !== '0'){
+        removeGraphId(id)
+      }
+      setCurrName(name)
+      postJson(graph)
+      cy.nodes().unselect()
+    }
+    }
+    return <Button onClick = {renameGraph} className = "UpperButtons">Rename Graph</Button>
+  }
