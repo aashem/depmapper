@@ -10,7 +10,7 @@ import graph from './graph/cytoscape'
 import './styles/App.css'
 import ListNodes from './ui/ListNodes'
 import StyleEditor from './ui/styleEditor'
-import {SaveGraph} from './components/graphHelpers'
+import {SaveGraph, NewGraph, DeleteGraph} from './components/graphHelpers'
 import Button from '@material-ui/core/Button'
 import ListEdges from './ui/ListEdges'
 import ListTags from './ui/listTags'
@@ -112,8 +112,6 @@ const App = (props) => {
     
   }
   
-  
-  
 
   const loadGraph = (newId) => {
     let cygraph
@@ -128,35 +126,6 @@ const App = (props) => {
     //dispatchTest()
   }
   
-  const newGraph = () => {
-    let newName = window.prompt("New Graph Name:")
-    if(props.graph.map(g => g.name).includes(newName)){
-      window.alert(`graph ${newName} exists already`)
-    }else{
-      setCurrName(newName)
-      clearElements()
-      cy.nodes().remove()
-      setInitHandler(true)
-    }
- 
-  }
-
-  const deleteGraph = () => {
-    if(id !== '0'){
-      if(window.confirm(`Delete ${currName} from app & database`)){
-        cy.destroy()
-        setCy(graph(true))
-        props.removeGraphId(id)
-        setCurrName('new')
-      }else{
-        console.log("no deletion")
-      }
-      clearElements()
-    }else{
-      window.alert('graph has not been saved')
-    }
-
-  }
 
   const renameGraph = () => {
     let name = window.prompt('Name: ')
@@ -195,8 +164,8 @@ const App = (props) => {
         </div>
     <div className= "App">
       <div className = "UpperButtons">
-        <Button onClick = {newGraph} className = "UpperButtons">New Graph</Button>
-        <Button onClick = {deleteGraph} className = "UpperButtons">Delete Graph</Button>
+        <NewGraph stateGraph = {props.graph} cy = {cy} setCurrName = {setCurrName} clearElements = {clearElements} setInitHandler = {setInitHandler}/>
+        <DeleteGraph cy = {cy} initGraph = {graph} setCurrName = {setCurrName} setCy = {setCy} clearElements = {clearElements} removeGraphId = {props.removeGraphId} id = {id}/>
         <Button onClick = {renameGraph} className = "UpperButtons">Rename Graph</Button>
       </div>
     <div className="Cy"id = 'cy'></div>

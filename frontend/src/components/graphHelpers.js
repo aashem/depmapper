@@ -32,3 +32,56 @@ export const SaveGraph = (props) => {
  
    
   }
+
+  export const NewGraph = (props) => {
+    let cy = props.cy
+    let setCurrName = props.setCurrName
+    let clearElements = props.clearElements
+    let setInitHandler = props.setInitHandler
+    let propsGraph = props.stateGraph
+    const newGraph = () => {
+    let newName = window.prompt("New Graph Name:")
+    if(propsGraph.map(g => g.name).includes(newName)){
+      window.alert(`graph ${newName} exists already`)
+    }else{
+      setCurrName(newName)
+      clearElements()
+      cy.nodes().remove()
+      setInitHandler(true)
+    }
+    }
+    
+    return  <Button onClick = {newGraph} className = "UpperButtons">New Graph</Button>
+  }
+
+  export const DeleteGraph = (props) => {
+    let id = props.id
+    let currName = props.currName
+    let cy = props.cy
+    let setCy = props.setCy
+    let graph = props.initGraph
+    let setCurrName = props.setCurrName
+    let clearElements = props.clearElements
+    let removeGraphId = props.removeGraphId
+
+    const deleteGraph = () => {
+        if(id !== '0'){
+            if(window.confirm(`Delete ${currName} from app & database`)){
+              cy.destroy()
+              setCy(graph(true))
+              removeGraphId(id)
+              setCurrName('new')
+            }else{
+              console.log("no deletion")
+            }
+            clearElements()
+          }else{
+            window.alert('graph has not been saved')
+            
+          }
+
+    }
+  
+
+    return <Button onClick = {deleteGraph} className = "UpperButtons">Delete Graph</Button>
+  }
