@@ -1,18 +1,18 @@
 import jsonServices from '../services/jsonServices'
-
+import {INIT, POST, UPDATE, INITID, DELETEID} from './jsonReducerTypes'
 
 
 const jsonReducer = (state = null, action) =>{
     switch(action.type){
-    case 'INIT':
+    case INIT:
         return action.data
-    case 'POST':
+    case POST:
         return action.data
-    case 'UPDATE':
+    case UPDATE:
         return action.data
-    case 'INITID':
+    case INITID:
         return action.data
-    case 'DELETEID':
+    case DELETEID:
         return action.data
     default:
         return state
@@ -25,7 +25,7 @@ export const initializeJson = () => {
     return async dispatch => {
         let json = await jsonServices.getAll()
         dispatch({
-            type: 'INIT',
+            type: INIT,
             data: json,
         })
     }
@@ -36,7 +36,7 @@ export const postJson = (content) => {
         await jsonServices.create(content)
         let json = await jsonServices.getAll()
         dispatch({
-            type:'POST',
+            type:POST,
             data: json,
         })
     }
@@ -47,7 +47,7 @@ export const updateJson = (id, content) => {
         await jsonServices.update(id, content)
         let json = await jsonServices.getAll()
         dispatch({
-            type:'UPDATE',
+            type:UPDATE,
             data: json,
         })
     }
@@ -57,7 +57,7 @@ export const initJsonId = (id) => {
     return async dispatch => {
         let json = await jsonServices.getById(id)
         dispatch({
-            type:'INITID',
+            type:INITID,
             data:json,
         })
     }
@@ -68,7 +68,7 @@ export const removeGraphId = (id) => {
         await jsonServices.remove(id)
         let json = await jsonServices.getAll()
         dispatch({
-            type:'DELETEID',
+            type:DELETEID,
             data: json,
         })
     }

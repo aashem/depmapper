@@ -1,6 +1,8 @@
+const INITCY = "INITCY"
+
 const cyReducer = (state = "", action) => {
     switch(action.type){
-        case "INITCY":
+        case INITCY:
             return action.data
         default:
             return state
@@ -9,7 +11,7 @@ const cyReducer = (state = "", action) => {
 
 export const initCy = (cy) => {
     return {
-        type: "INITCY",
+        type: INITCY,
         data: cy
     }
 }

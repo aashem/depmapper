@@ -1,6 +1,8 @@
+const INITEDGES = "INITEDGES"
+
 const edgeReducer = (state = {}, action) => {
     switch(action.type){
-        case "INITEDGES":
+        case INITEDGES:
             return action.data
         default:
             return state
@@ -9,7 +11,7 @@ const edgeReducer = (state = {}, action) => {
 
 export const initializeEdges = (edges) => {
     return{
-        type:"INITEDGES",
+        type: INITEDGES,
         data: edges
     }
 }

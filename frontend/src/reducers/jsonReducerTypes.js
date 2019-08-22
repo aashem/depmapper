@@ -1,0 +1,5 @@
+export const POST = "POST"
+export const INIT = "INIT"
+export const UPDATE = "UPDATE"
+export const INITID = "INITID"
+export const DELETEID = "DELETEID"

@@ -28,9 +28,7 @@ export const SaveGraph = (props) => {
      
       }
     }
-      return <Button onClick ={saveGraph}>save</Button>
- 
-   
+      return <Button onClick ={saveGraph}>save</Button> 
   }
 
   export const NewGraph = (props) => {
@@ -66,23 +64,21 @@ export const SaveGraph = (props) => {
 
     const deleteGraph = () => {
         if(id !== '0'){
-            if(window.confirm(`Delete ${currName} from app & database`)){
-              cy.destroy()
-              setCy(graph(true))
-              removeGraphId(id)
-              setCurrName('new')
-            }else{
-              console.log("no deletion")
-            }
-            clearElements()
+          if(window.confirm(`Delete ${currName} from app & database`)){
+            cy.destroy()
+            setCy(graph(true))
+            removeGraphId(id)
+            setCurrName('new')
           }else{
-            window.alert('graph has not been saved')
-            
+            console.log("no deletion")
           }
+          clearElements()
+        }else{
+          window.alert('graph has not been saved')
+            
+        }
 
     }
-  
-
     return <Button onClick = {deleteGraph} className = "UpperButtons">Delete Graph</Button>
   }
 
@@ -94,19 +90,19 @@ export const SaveGraph = (props) => {
     let setCurrName = props.setCurrName
     let postJson = props.postJson
 
-    const renameGraph = () => {
+  const renameGraph = () => {
     if (cy){
-    let name = window.prompt('Name: ')
-    let graph = {
-      json: cy.json(),
-      name: name,
+      let name = window.prompt('Name: ')
+      let graph = {
+        json: cy.json(),
+        name: name,
     } 
-      if(id !== '0'){
-        removeGraphId(id)
-      }
-      setCurrName(name)
-      postJson(graph)
-      cy.nodes().unselect()
+    if(id !== '0'){
+      removeGraphId(id)
+    }
+    setCurrName(name)
+    postJson(graph)
+    cy.nodes().unselect()
     }
     }
     return <Button onClick = {renameGraph} className = "UpperButtons">Rename Graph</Button>
