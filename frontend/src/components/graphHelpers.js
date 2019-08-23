@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import jsonServices from '../services/jsonServices'
+import Select from 'react-select'
 
 export const SaveGraph = (props) => {
     let currName = props.currName
@@ -39,13 +40,15 @@ export const SaveGraph = (props) => {
     let propsGraph = props.stateGraph
     const newGraph = () => {
     let newName = window.prompt("New Graph Name:")
-    if(propsGraph.map(g => g.name).includes(newName)){
-      window.alert(`graph ${newName} exists already`)
-    }else{
-      setCurrName(newName)
-      clearElements()
-      cy.nodes().remove()
-      setInitHandler(true)
+    if(newName){
+      if(propsGraph.map(g => g.name).includes(newName)){
+        window.alert(`graph ${newName} exists already`)
+      }else{
+        setCurrName(newName)
+        clearElements()
+        cy.nodes().remove()
+        setInitHandler(true)
+      }
     }
     }
     
@@ -107,3 +110,36 @@ export const SaveGraph = (props) => {
     }
     return <Button onClick = {renameGraph} className = "UpperButtons">Rename Graph</Button>
   }
+
+ export const SelectGraph = (props) => {
+  let graph = props.graphDispatch
+  let graphNames = props.graphs
+  let cy = props.cy
+  let updateElements = props.update
+  let setId = props.setId
+  let setCurrName = props.setCurrName
+  let loadGraph = props.loadGraph
+  let setInitHandler = props.setInitHandler
+
+  const selectGraph = value => {
+      cy.nodes().unselect()
+      cy.nodes().remove()
+      let newId = value.value
+      setId(newId)
+      let name = graph.filter(j => j.id === newId)
+      setCurrName(name[0].name)
+      loadGraph(newId)
+      updateElements()
+      setInitHandler(true)
+      cy.nodes().forEach(e => e.style({backgroundColor: e.data('background-color')}))
+    }
+  return(
+      <Select 
+      placeholder = "Graph"
+      className = "Select"
+      name = "graph"
+      onChange = {selectGraph}
+      options = {graphNames}
+    ></Select> 
+  )
+} 

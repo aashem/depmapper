@@ -10,13 +10,12 @@ import graph from './graph/cytoscape'
 import './styles/App.css'
 import ListNodes from './ui/ListNodes'
 import StyleEditor from './ui/styleEditor'
-import {SaveGraph, NewGraph, DeleteGraph, RenameGraph} from './components/graphHelpers'
+import {SaveGraph, NewGraph, DeleteGraph, RenameGraph, SelectGraph} from './components/graphHelpers'
 import Button from '@material-ui/core/Button'
 import ListEdges from './ui/ListEdges'
 import ListTags from './ui/listTags'
 import {setActiveElement} from './reducers/activeElementReducer'
 import AddNode from './components/addNode'
-import SelectGraph from './components/selectGraph'
 //import dispatchTest from './graph/graphHandlers'
 
 //todo split app into smaller components
@@ -112,19 +111,21 @@ const App = (props) => {
     
   }
   
-
   const loadGraph = (newId) => {
-    let cygraph
-    if(id !== '0'|| typeof newId === typeof id){
-      let id = newId
-      cygraph = props.graph.filter(j => j.id === id)
-      console.log(cygraph[0].json)
-      console.log('here')
-      cy.json(cygraph[0].json)
+    if(typeof newId !== typeof id){
+      let target = props.graph.filter(j => j.id === id)
+      cy.json(target[0].json)
+    }else{
+      let cygraph = props.graph
+      if(id !== '0'|| typeof newId === typeof id){
+        let id = newId
+        cygraph = props.graph.filter(j => j.id === id)
+        cy.json(cygraph[0].json)
+      }
+      
     }
     updateElements()
-    //dispatchTest()
-  }
+  } 
   
   return (
     
