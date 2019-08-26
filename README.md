@@ -22,9 +22,7 @@
 
 ## REST
 
-- All graphs are saved as JSON using Cytoscapes cy.json() method
-- http://localhost:3001/api/mapping/list fetches all graphs
-- http://localhost:3001/api/mapping/list/:name fetches single graph using graphs name
+    https://github.com/aashem/depmapper/wiki/REST
 
 ## NGINX
 
