@@ -22,7 +22,7 @@
 
 ## REST
 
-    [Wiki Link](https://github.com/aashem/depmapper/wiki/REST)
+[Wiki Link](https://github.com/aashem/depmapper/wiki/REST)
 
 ## NGINX
 
