@@ -9,7 +9,8 @@ const Header = () => {
   }
   
   
-    return <div>DepMapper
+    return <div>
+      DepMapper
       <a href="https://github.com/aashem/depmapper/" >
         <img src={gitlogo} alt = "logo" style={logoStyle} 
         >  

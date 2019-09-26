@@ -1,9 +1,8 @@
 import cytoscape from 'cytoscape'
 import cxtmenu from 'cytoscape-cxtmenu'
 
-const graph = (newCy) => {
+const graph = (newCy, setNotification) => {
     let isGroup = false
-
     let selectedNodes = []
     let groupingList = []
     if(!newCy){
@@ -61,6 +60,9 @@ const graph = (newCy) => {
           {
             content:"Connect",
             select: (ele) => {
+              let notification = ''
+              setNotification(notification = {msg : "Select target to connect with", type: "connect"})
+              ele.data('processing' , 'true')
               ele.select()
               ele.lock()
             }
@@ -154,9 +156,8 @@ const graph = (newCy) => {
         if(isGroup){
           isGroup = false
           selected.unlock()
+          selected.unselect()
         }else{
-
-          window.alert("choose target")
           selectedNodes.push(selected)
           selected.unlock()
         }

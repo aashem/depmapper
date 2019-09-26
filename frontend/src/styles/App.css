@@ -46,6 +46,7 @@
 
 
 .Cy{
+  position: static;
   margin: 10px;
   background-color:rgb(191, 201, 245);
   height: 60vmin;
@@ -60,7 +61,6 @@
   background-color: lightgray;
   font-family: 'Roboto' sans-serif
 }
-
 
 
 

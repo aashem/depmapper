@@ -16,6 +16,8 @@ import ListEdges from './ui/ListEdges'
 import ListTags from './ui/listTags'
 import {setActiveElement} from './reducers/activeElementReducer'
 import AddNode from './components/addNode'
+import Notification from './ui/notification'
+import {setNotification, clearNotification} from './reducers/notificationReducer'
 //import dispatchTest from './graph/graphHandlers'
 
 //todo split app into smaller components
@@ -37,6 +39,8 @@ const App = (props) => {
   const [graphNames, setGraphNames] = useState([])
   const [currName, setCurrName] = useState('new')
   const [initHandler, setInitHandler] = useState(true)
+  let notification = ''
+  
 
   const startFunction = (graph) => {
     props.initCy(graph)
@@ -52,7 +56,7 @@ const App = (props) => {
   useEffect(() => {
     //initialize cytoscape graph and set it to attribute cy
 
-    let cygraph = graph()
+    let cygraph = graph(null, props.setNotification)
     setCy(cygraph) 
     startFunction(cygraph)
   
@@ -73,12 +77,17 @@ const App = (props) => {
   const handlers = () => {
     cy.on('select', (event) => {
       props.setActiveElement(event.target)
-      console.log(event.target)
         event.target.style({"border-color": "purple", "border-style" : "solid", "border-width" : "8px" })
+        if(!event.target.data('processing')){
+          console.log(event.target.data())
+        props.setNotification(notification = {msg : `selected ${event.target.data('name')}`, type: "help"})
+        }
     })
     cy.on('unselect', (event) => {
       props.setActiveElement('')
         event.target.style({"border-color" : 'black', "border-style" : "solid", "border-width" : "2px"})
+        event.target.data('processing', '')
+        props.clearNotification()
     })
   }
 
@@ -153,7 +162,11 @@ const App = (props) => {
         <DeleteGraph cy = {cy} initGraph = {graph} setCurrName = {setCurrName} setCy = {setCy} clearElements = {clearElements} removeGraphId = {props.removeGraphId} id = {id}/>
         <RenameGraph cy = {cy} id = {id} removeGraphId = {props.removeGraphId} setCurrName = {setCurrName} postJson = {props.postJson}/>
       </div>
-    <div className="Cy"id = 'cy'></div>
+    <div className="Cy"id = 'cy'>
+      <div>
+      <Notification></Notification>     
+      </div>
+    </div>
       <div className = 'AddNodePanel'>
         <div className = 'AddNodePanelLeft'>
          <AddNode cy={cy} update = {updateElements}/>
@@ -193,6 +206,8 @@ const mapDispatchToProps = {
   removeGraphId,
   initializeTags,
   setActiveElement,
+  setNotification,
+  clearNotification
 }
 
 export default connect(

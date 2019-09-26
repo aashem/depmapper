@@ -1,0 +1,11 @@
+.Notification{
+    background-color : gray;
+    border: solid;
+    position: absolute;
+    display: block;
+    float: left;
+    margin-left: 2%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
