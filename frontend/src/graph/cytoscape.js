@@ -46,6 +46,7 @@ const graph = (newCy, setNotification) => {
         }
         
       })
+      let notification = ""
       cy.cxtmenu({
         selector: "node",
         commands: [
@@ -60,7 +61,6 @@ const graph = (newCy, setNotification) => {
           {
             content:"Connect",
             select: (ele) => {
-              let notification = ''
               setNotification(notification = {msg : "Select target to connect with", type: "connect"})
               ele.data('processing' , 'true')
               ele.select()
@@ -79,10 +79,11 @@ const graph = (newCy, setNotification) => {
           },{
             content:"Group",
             select: (ele) => {
+              setNotification(notification = {msg : "Select parent node", type: "connect"})
+              ele.data('processing', 'true')
               isGroup = true
               ele.lock()
               groupingList.push(ele)
-              window.alert('choose parent node')
               cy.resize()
             }
           }
@@ -96,6 +97,7 @@ const graph = (newCy, setNotification) => {
           content:"Remove",
           select: (ele) => {
             cy.remove(ele)
+            setNotification(notification = {msg : `removed ${ele.id()}`, type: "temp"})
             cy.resize()
             }
           },
