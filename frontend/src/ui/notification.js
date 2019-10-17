@@ -6,10 +6,11 @@ const Notification = props => {
     let msg = props.notif.msg
     let type = props.notif.type
     console.log(type)
+    
 
     if (msg) {
         return (
-                <p className = "Notification">{msg}</p>
+            <p className = "Notification">{msg}</p>
             )
    }else{
        return null

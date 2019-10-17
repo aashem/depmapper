@@ -47,6 +47,7 @@ const graph = (newCy, setNotification) => {
         
       })
       let notification = ""
+      console.log(notification)
       cy.cxtmenu({
         selector: "node",
         commands: [
