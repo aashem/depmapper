@@ -1,6 +1,10 @@
 FROM node:latest
 WORKDIR /usr/webapp/src
-COPY . /usr/webapp/src
-RUN npm install
+COPY package.json .
+COPY src src/.
+COPY public public/.
+RUN npm install --silent
+RUN npm run-script build
+COPY build build/.
 EXPOSE 3000
-CMD [ "npm", "start" ]
+#CMD [ "npm", "start" ]
