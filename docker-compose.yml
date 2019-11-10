@@ -31,7 +31,7 @@ services:
           context: ./frontend
           dockerfile: dockerfile
         ports: 
-          - 3000:3000
+          - 3000:3001
         networks:
           - public
         volumes:
