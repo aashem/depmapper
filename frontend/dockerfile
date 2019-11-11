@@ -5,6 +5,5 @@ COPY src src/.
 COPY public public/.
 RUN npm install --silent
 RUN npm run-script build
-COPY build /usr/webapp/build/.
 EXPOSE 3000
 CMD [ "npm", "start" ]
