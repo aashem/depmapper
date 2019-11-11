@@ -10,6 +10,19 @@ services:
         networks:
           - closed
 
+     
+    app:
+        build:
+          context: ./frontend
+          dockerfile: dockerfile
+        ports: 
+          - 3000:3001
+        networks:
+          - public
+        volumes:
+          - ./frontend/src/:/usr/webapp/src/src
+          - ./frontend/package.json:/usr/webapp/src/package.json
+
     api:
         build:
           context: ./backend
@@ -25,20 +38,11 @@ services:
           - mongo
         volumes: 
           - /app
-    
-    app:
-        build:
-          context: ./frontend
-          dockerfile: dockerfile
-        ports: 
-          - 3000:3001
-        networks:
-          - public
-        volumes:
-          - ./frontend/src/:/usr/webapp/src/src
-          - ./frontend/package.json:/usr/webapp/src/package.json
+   
     nginx:
-        image: nginx:latest
+        build:
+          context: ./proxy
+          dockerfile: dockerfile
         networks:
           - public
           - closed
@@ -49,7 +53,7 @@ services:
           - ./proxy/nginx.conf:/etc/nginx/nginx.conf
         depends_on:
           - app
-          - api
+          - api 
  
 networks:
     closed:
