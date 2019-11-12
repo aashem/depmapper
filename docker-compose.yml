@@ -54,6 +54,7 @@ services:
         depends_on:
           - app
           - api 
+     
  
 networks:
     closed:
