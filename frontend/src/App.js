@@ -40,7 +40,8 @@ const App = (props) => {
   const [currName, setCurrName] = useState('new')
   const [initHandler, setInitHandler] = useState(true)
   let notification = ''
-  console.log(notification)
+    if (notification){
+    }
   
 
   const startFunction = (graph) => {

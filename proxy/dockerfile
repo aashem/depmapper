@@ -1,7 +1,11 @@
 FROM nginx:latest
 
+
 RUN apt update
 RUN apt-get install openssl apache2-utils -y
+RUN apt-get install certbot python-certbot-nginx -y
 
-COPY nginx.conf .
+COPY nginx.conf etc/nxing/.
 COPY certs etc/nginx/certs/.
+COPY test etc/nginx/test/test/.
+COPY acmechallenge etc/nginx/html/.well-known/
