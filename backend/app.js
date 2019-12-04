@@ -11,7 +11,7 @@ mongoose.set('useFindAndModify', false);
 
 let mongoUri = config.MONGOURI
 
-mongoose.connect(mongoUri, {useNewUrlParser: true})
+mongoose.connect(mongoUri, {useNewUrlParser: true, useUnifiedTopology : true})
 console.log(`connected to db at ${mongoUri}`)
 
 app.use(cors())
