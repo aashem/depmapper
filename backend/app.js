@@ -8,10 +8,11 @@ const graphRouter = require('./controllers/graphController')
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
+mongoose.set('useUnifiedTopology', true);
 
 let mongoUri = config.MONGOURI
 
-mongoose.connect(mongoUri, {useNewUrlParser: true, useUnifiedTopology : true})
+mongoose.connect(mongoUri, {useNewUrlParser: true})
 console.log(`connected to db at ${mongoUri}`)
 
 app.use(cors())
