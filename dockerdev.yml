@@ -24,7 +24,7 @@ services:
           - ./frontend/package.json:/usr/webapp/src/package.json
         environment:
           - env_file=".env"
-          - REACT_APP_DEV=yes
+          - REACT_APP_PATH=http://localhost:3001
 
     api:
         build:

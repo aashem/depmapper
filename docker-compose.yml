@@ -22,6 +22,9 @@ services:
         volumes:
           - ./frontend/src/:/usr/webapp/src/src
           - ./frontend/package.json:/usr/webapp/src/package.json
+        environment:
+          - env_file=".env"
+          - REACT_APP_PATH=http://gwiki.cs-ware.eu:3001
 
     api:
         build:
