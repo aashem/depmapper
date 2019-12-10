@@ -1,0 +1,16 @@
+FROM nginx:latest
+
+
+RUN apt update
+RUN apt-get install openssl apache2-utils -y
+
+
+COPY nginx.conf etc/nxing/.
+COPY certs /etc/nginx/certs/.
+COPY certs/privkey.pem /etc/letsencrypt/live/gwiki.cs-aware.eu/privkey.pem/.
+COPY certs/fullchain.pem /etc/letsencrypt/live/gwiki.cs-aware.eu/fullchain.pem/.
+
+
+
+
+

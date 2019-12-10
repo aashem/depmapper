@@ -1,8 +1,16 @@
 import Axios from 'axios'
 
+let path = ""
+let dev = process.env.REACT_APP_DEV
+
+if(dev.toString() === "yes"){
+    path = "http://localhost:3001"
+}
+
+
 
 //PORT
-const url = "http://localhost:3001/api/mapping/list"
+const url = `${path}/api/mapping/list`
 
 const getAll = async () => {
     const response = await Axios.get(url)

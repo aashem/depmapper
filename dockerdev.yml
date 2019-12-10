@@ -1,0 +1,66 @@
+version: '3.7'
+
+services:
+    
+    mongo:
+        image: mongo
+        container_name: mongodb
+        ports:
+          - 27017:27017
+        networks:
+          - closed
+
+     
+    app:
+        build:
+          context: ./frontend
+          dockerfile: dockerfile
+        ports: 
+          - 3000:3000
+        networks:
+          - public
+        volumes:
+          - ./frontend/src/:/usr/webapp/src/src
+          - ./frontend/package.json:/usr/webapp/src/package.json
+        environment:
+          - env_file=".env"
+          - REACT_APP_DEV=yes
+
+    api:
+        build:
+          context: ./backend
+          dockerfile: dockerfile
+        ports: 
+          - 3001:3001
+        environment:
+          - MONGO_PATH='mongodb://mongo:27017/depmapper'
+        networks:
+          - closed
+          - public
+        depends_on:
+          - mongo
+        volumes: 
+          - /app
+   
+    nginx:
+        build:
+          context: ./proxy
+          dockerfile: dockerfiledev
+        networks:
+          - public
+          - closed
+        ports: 
+          - 8080:80
+          - 8443:443
+        volumes:
+          - ./proxy/nginx.conf:/etc/nginx/nginxdev.conf
+        depends_on:
+          - app
+          - api 
+     
+ 
+networks:
+    closed:
+    public:   
+       
+ 
