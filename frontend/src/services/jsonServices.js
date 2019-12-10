@@ -3,7 +3,7 @@ import Axios from 'axios'
 let path = ""
 let dev = process.env.REACT_APP_DEV
 
-if(dev.toString() === "yes"){
+if(dev === "yes"){
     path = "http://localhost:3001"
 }
 
