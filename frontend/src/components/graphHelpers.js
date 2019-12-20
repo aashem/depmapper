@@ -12,6 +12,7 @@ export const SaveGraph = (props) => {
 
     const saveGraph = async() => {
     if (props.cy){
+    console.log(cy.json())
     let graph = {
       json: cy.json(),
       name: currName,
