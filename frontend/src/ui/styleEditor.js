@@ -1,11 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Select from 'react-select'
-import {colorList} from '../graph/nodeStyles'
+import {colorList, edgeArrowTypes} from '../graph/nodeStyles'
+
 
 
 const StyleEditor = (props) => {
+    console.log(edgeArrowTypes)
     let colors = colorList()
+    let edgeArrows = edgeArrowTypes()
+    console.log(edgeArrows)
     let activeEle = props.activeEle
 
  
@@ -28,28 +32,73 @@ const StyleEditor = (props) => {
     
     }
 
+    const changeName = (event) => {
+
+        if(activeEle){
+            activeEle.data('name', event.value || event.target.value)
+        }
+    }
+
     const changeDescription = (event) => {
         activeEle.data('desc', event.target.value)
     }
 
+    const changeType = (event) => {
+        
+        if(activeEle){
+            activeEle.data('target-arrow-shape', event.value || event.target.value)
+            activeEle.style({targetArrowShape : activeEle.data('target-arrow-shape')})
+        }
+    }
+
    
     if (activeEle[0]){
+        if(activeEle[0].isEdge()){
+            return (
+                <div className = 'AddNodePanelRight'>
+                    <div className = 'EdgeEditor'>
+                        <p>
+                            Name : 
+                        </p>
+                        <textarea
+                            maxLength = '8'
+                            cols = '8'
+                            rows = '1'
+                            name = 'text'
+                            defaultValue = {activeEle[0].data('name')}
+                            onChange = {changeName}
+                        >   
+                        </textarea>
+                        <p>
+                           Arrow Type :  
+                        </p>
+                        <Select
+                            options = {edgeArrows}
+                            name = 'arrow'
+                            onChange = {changeType}
+                        >
+                        </Select>
+                    </div>
+                </div>
+            )
+        }
     return (
     <div  className = 'AddNodePanelRight'>
         <div className = 'NodeEditor'> 
-            <h2>{activeEle[0].data('name')} </h2>
+            <p>Name : </p>
+            <textarea
+                cols = '8'
+                rows = '1'
+                defaultValue = {activeEle[0].data('name')}
+                maxLength =  '8'
+                onChange = {changeName}
+            >
+            </textarea>
             <input id="color" 
             type="color"
             onChange={changeColor}
             defaultValue = {activeEle[0]._private.style ? toHex(activeEle[0]._private.style) : '0000ff'}
              />
-            <Select
-            options = {colors}
-            name = 'color'
-            onChange = {changeColor}
-            >
-
-            </Select>
         </div>
         <div className = 'NodeDesc'>
             <p>Description</p>

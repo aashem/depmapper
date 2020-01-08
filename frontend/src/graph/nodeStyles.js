@@ -37,3 +37,18 @@ const colorList = [
 ]
     return colorList.map(c => c = {value: c, label: c})
 }
+
+export const edgeArrowTypes = () => {
+    const edgeList = [
+        'triangle',
+        'tee',
+        'none',
+        'circle',
+        'diamond',
+        'square',
+        'triangle-cross',
+        'triangle-backcurve',
+        'triangle-tee',
+    ]
+    return edgeList.map(c => c = {value: c, label: c})
+}

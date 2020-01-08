@@ -13,14 +13,14 @@ import testGraphJson from './testgraph.json'
     })
   })
   describe('DELETE request', () => {
-    it('should get graph by name "test" and delete it', async () => {
+    it('should GET graph by name "test" and DELETE it', async () => {
       let res = await jsonServices.getByName('test')
       res = await jsonServices.remove(res[0].id)
       expect(res.name).toBe('test')
     })
   })
   describe('Graphical Presentation', () => {
-    it('should POST graph named testGraph where there are 3 nodes all connected with different colours (View the graph in localhost:3000)', async () => {
+    it('should POST graph named testGraph where there are 3 node and all are connected with different colours (View the graph in localhost:3000)', async () => {
       let graph = {
         json: testGraphJson,
         name: 'testGraph'
@@ -35,6 +35,7 @@ import testGraphJson from './testgraph.json'
       }
     })
   })
+  
 
 
 

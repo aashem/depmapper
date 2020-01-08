@@ -84,10 +84,16 @@ const App = (props) => {
           console.log(event.target.data())
         props.setNotification(notification = {msg : `selected ${event.target.data('name')}`, type: "help"})
         }
+        if(event.target.isEdge()){
+          event.target.style({"line-color" : "purple"})
+        }
     })
     cy.on('unselect', (event) => {
       props.setActiveElement('')
         event.target.style({"border-color" : 'black', "border-style" : "solid", "border-width" : "2px"})
+        if(event.target.isEdge()){
+          event.target.style({"line-color" : "black"})
+        }
         event.target.data('processing', '')
         props.clearNotification()
     })
