@@ -24,7 +24,7 @@ services:
           - ./frontend/package.json:/usr/webapp/src/package.json
         environment:
           - env_file=".env"
-          - REACT_APP_PATH=http://gwiki.cs-ware.eu:3001
+          - REACT_APP_PATH=http://gwiki.cs-aware.eu:3001
 
     api:
         build:
