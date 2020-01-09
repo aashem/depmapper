@@ -46,7 +46,7 @@
 
 
 .Cy{
-  position: static;
+  position: auto;
   margin: 10px;
   background-color:rgb(191, 201, 245);
   height: 60vmin;
@@ -85,13 +85,13 @@
 }
 
 .AddNodePanelLeft{
-  width : 49%;
+  width : 35vmax;
 
 }
 
 .AddNodePanelLeftSelect{
   width: 90%;
-  margin:20px;
+  margin: 5px;
 }
 
 .AddNodePanelRight{
@@ -100,11 +100,23 @@
   padding-left: 20px;
   padding-right: 100px;
   margin-right: 5px;
-  height:100%;
-  width: 70;
+  height: 100%;
+  width: 40vmax;
   background-color: gray;
   border: solid;
+  font-size: 20px;
 }
+
+.EdgeEditor{
+  width: 35%;
+}
+
+
+.EdgeEditorRight {
+  width: 70%;
+  margin-left: -10px;
+}
+
 
 .NodeEditor{
   width: 40%;

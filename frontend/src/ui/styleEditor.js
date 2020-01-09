@@ -61,7 +61,7 @@ const StyleEditor = (props) => {
                             Name : 
                         </p>
                         <textarea
-                            maxLength = '8'
+                            maxLength = '24'
                             cols = '8'
                             rows = '1'
                             name = 'text'
@@ -69,6 +69,8 @@ const StyleEditor = (props) => {
                             onChange = {changeName}
                         >   
                         </textarea>
+                        </div>
+                        <div className = 'EdgeEditorRight'>
                         <p>
                            Arrow Type :  
                         </p>
@@ -78,7 +80,7 @@ const StyleEditor = (props) => {
                             onChange = {changeType}
                         >
                         </Select>
-                    </div>
+                        </div>
                 </div>
             )
         }
@@ -90,7 +92,7 @@ const StyleEditor = (props) => {
                 cols = '8'
                 rows = '1'
                 defaultValue = {activeEle[0].data('name')}
-                maxLength =  '8'
+                maxLength =  '24'
                 onChange = {changeName}
             >
             </textarea>
