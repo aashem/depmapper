@@ -130,7 +130,10 @@ const App = (props) => {
   
   const loadGraph = (newId) => {
     if(typeof newId !== typeof id){
+      props.initializeJson()
       let target = props.graph.filter(j => j.id === id)
+      console.log(props.graph)
+      console.log(target[0].json)
       cy.json(target[0].json)
     }else{
       let cygraph = props.graph
