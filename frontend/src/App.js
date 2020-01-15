@@ -129,8 +129,8 @@ const App = (props) => {
   }
   
   const loadGraph = (newId) => {
+    props.initializeJson()
     if(typeof newId !== typeof id){
-      props.initializeJson()
       let target = props.graph.filter(j => j.id === id)
       console.log(props.graph)
       console.log(target[0].json)
