@@ -34,4 +34,4 @@
 ## NGINX
 
 - Nginx and SSL implemented in distribution config, dev configurations are used to change and try settings.
-- Nginx dist is configured for gwiki.cs-aware.eu.
+- Nginx dist is configured for domain: gwiki.cs-aware.eu.
