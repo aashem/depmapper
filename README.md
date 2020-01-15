@@ -10,6 +10,7 @@
 ## scripts
 
 - docker-compose build, make new docker build after changes
+- to run frontend and backend live edit mode without docker run command | bash script.hs
 
 ### development
 
