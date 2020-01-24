@@ -1,13 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Select from 'react-select'
-import {colorList, edgeArrowTypes} from '../graph/nodeStyles'
+import {edgeArrowTypes} from '../graph/nodeStyles'
 
 
 
 const StyleEditor = (props) => {
     console.log(edgeArrowTypes)
-    let colors = colorList()
     let edgeArrows = edgeArrowTypes()
     console.log(edgeArrows)
     let activeEle = props.activeEle
@@ -75,6 +74,7 @@ const StyleEditor = (props) => {
                            Arrow Type :  
                         </p>
                         <Select
+                            className = "Select-Inner"
                             options = {edgeArrows}
                             name = 'arrow'
                             onChange = {changeType}
@@ -116,7 +116,11 @@ const StyleEditor = (props) => {
     </div>
     )
     }else{
-        return <></>
+        return <div className = "HelpText">
+                <h2>Help: </h2>
+               <p>- Right click to open Context Menu</p>
+               <p>- Left click to select nodes & edges</p>
+                </div>
     }
 }
 

@@ -18,20 +18,6 @@ import {setActiveElement} from './reducers/activeElementReducer'
 import AddNode from './components/addNode'
 import Notification from './ui/notification'
 import {setNotification, clearNotification} from './reducers/notificationReducer'
-//import dispatchTest from './graph/graphHandlers'
-
-//todo split app into smaller components
-
-
-/*
-
-* tagging of notes, edges
-* change of state is possible all the time
-* Note / Edges have text fields
-LOW PRIORITY: * https everything (edited) 
-* at startup - display no graph, what for selection */
-
-
 
 const App = (props) => {
   const [cy, setCy] = useState('')
@@ -132,9 +118,8 @@ const App = (props) => {
     props.initializeJson()
     if(typeof newId !== typeof id){
       let target = props.graph.filter(j => j.id === id)
-      console.log(props.graph)
-      console.log(target[0].json)
-      cy.json(target[0].json)
+    cy.json(target[0].json)
+
     }else{
       let cygraph = props.graph
       if(id !== '0'|| typeof newId === typeof id){
@@ -168,10 +153,16 @@ const App = (props) => {
           </div>
         </div>
     <div className= "App">
+      <div className = "TopBar">
       <div className = "UpperButtons">
         <NewGraph stateGraph = {props.graph} cy = {cy} setCurrName = {setCurrName} clearElements = {clearElements} setInitHandler = {setInitHandler}/>
         <DeleteGraph cy = {cy} initGraph = {graph} setCurrName = {setCurrName} setCy = {setCy} clearElements = {clearElements} removeGraphId = {props.removeGraphId} id = {id}/>
         <RenameGraph cy = {cy} id = {id} removeGraphId = {props.removeGraphId} setCurrName = {setCurrName} postJson = {props.postJson}/>
+      </div>
+      <div className= "Panel">
+          <SaveGraph cy= {cy} currName = {currName} propsGraph = {props.graph} postJson = {props.postJson} updateJson = {props.updateJson}/>
+          <Button onClick = {loadGraph}>load</Button>
+        </div> 
       </div>
     <div className="Cy"id = 'cy'>
       <div>
@@ -182,14 +173,9 @@ const App = (props) => {
         <div className = 'AddNodePanelLeft'>
          <AddNode cy={cy} update = {updateElements}/>
         </div>
-          <div>
             <StyleEditor/>
-          </div>
       </div>
-        <div className= "Panel">
-          <SaveGraph cy= {cy} currName = {currName} propsGraph = {props.graph} postJson = {props.postJson} updateJson = {props.updateJson}/>
-          <Button onClick = {loadGraph}>load</Button>
-        </div>      
+          
     </div>
     </div>
   </div>
