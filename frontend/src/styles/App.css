@@ -147,14 +147,13 @@
     "nav buttons panel" 
     "nav cy"
     "nav addnode";
-  grid-template-rows: 5% 1fr 1fr;
-  grid-template-columns: 10% 1fr;
+  grid-template-columns: 10vmax 90vmax;
   background-color:lightgray;
 }
 
 .LeftPanel {
   grid-area: "nav";
-  grid-row: 1/4;
+  grid-row: 1/ -1;
   grid-column: 1 / 2;
   background-color: rgba(0, 0, 255, 0.2);
 }
@@ -196,7 +195,7 @@
 .AddNodePanel {
   display: grid;
   grid-template-areas: "left right";
-  grid-template-columns: 88fr 100fr;
+  grid-template-columns: auto auto;
 }
 
  
@@ -212,7 +211,7 @@
 
 .AddNodePanelLeft {
   height: 150px;
-  width:105%;
+  width: auto;
   grid-area: "left";
   background-color: rgba(0,0,0, 0.4);
   border: solid 1px;
@@ -220,10 +219,9 @@
 
 
 .AddNodePanelRight  {
-  justify-self: end;
-  width:94%;
-  margin-left: 2px;
   display: grid;
+  width: 95%;
+  margin-left: 5px;
   grid-template-columns: 1fr 2fr;
   height: 150px;
   grid-area: "right";

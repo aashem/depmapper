@@ -113,21 +113,28 @@ const App = (props) => {
     props.initializeNodes('')
     
   }
+
+  const load = (target) => {
+    cy.json(target)
+  }
   
   const loadGraph = (newId) => {
     props.initializeJson()
     if(typeof newId !== typeof id){
       let target = props.graph.filter(j => j.id === id)
-    cy.json(target[0].json)
-
+      if(target.length > 0){
+        console.log('Load Succesful')
+        load(target[0].json)
+      }else{
+        console.log('Load Unsuccesful (no target graph)')
+      }
     }else{
-      let cygraph = props.graph
+      let target = props.graph
       if(id !== '0'|| typeof newId === typeof id){
         let id = newId
-        cygraph = props.graph.filter(j => j.id === id)
-        cy.json(cygraph[0].json)
+        target = props.graph.filter(j => j.id === id)
+        load(target[0].json)
       }
-      
     }
     updateElements()
   } 
