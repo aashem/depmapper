@@ -116,6 +116,25 @@ const graph = (newCy, setNotification) => {
         ]
       })
 
+      cy.cxtmenu({
+        selector: 'core',
+        commands: [
+          {
+          content: "Add Node",
+          select: (ele) => {
+            let id = cy.nodes().size()
+            cy.add({
+              data: { id: `${id + 1}` , name: `${id + 1}` },
+              position: {
+                x: 400,
+                y: 400,
+              },
+            })
+          }
+          }
+        ]
+      })
+
       //todo refactor all eventhandlers to fix bugs and usability issues 
   
       cy.on('tap', (event) => {

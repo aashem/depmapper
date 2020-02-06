@@ -120,7 +120,6 @@ export const SaveGraph = (props) => {
   let setId = props.setId
   let setCurrName = props.setCurrName
   let loadGraph = props.loadGraph
-  let setInitHandler = props.setInitHandler
 
   const selectGraph = value => {
       cy.nodes().unselect()
@@ -131,7 +130,6 @@ export const SaveGraph = (props) => {
       setCurrName(name[0].name)
       loadGraph(newId)
       updateElements()
-      setInitHandler(true)
       cy.nodes().forEach(e => e.style({backgroundColor: e.data('background-color')}))
     }
   return(

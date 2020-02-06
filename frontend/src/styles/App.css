@@ -148,6 +148,7 @@
     "nav cy"
     "nav addnode";
   grid-template-columns: 10vmax 90vmax;
+  grid-template-rows: 10fr, 80fr, 10fr;
   background-color:lightgray;
 }
 
@@ -183,7 +184,7 @@
 
 
 .Cy {
-  height: 415px;
+  height: 80vmin;
   grid-area: 'cy';
   z-index: 5;
   grid-row: 2;
