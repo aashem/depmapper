@@ -67,8 +67,9 @@ const App = (props) => {
       props.setActiveElement(event.target)
         event.target.style({"border-color": "purple", "border-style" : "solid", "border-width" : "8px" })
         if(!event.target.data('processing')){
-          console.log(event.target.data())
         props.setNotification(notification = {msg : `selected ${event.target.data('name')}`, type: "help"})
+        event.target.data('processing', 'yes')
+        console.log(event.target.data())
         }
         if(event.target.isEdge()){
           event.target.style({"line-color" : "purple"})
@@ -178,7 +179,7 @@ const App = (props) => {
     </div>
       <div className = 'AddNodePanel'>
         <div className = 'AddNodePanelLeft'>
-         <AddNode cy={cy} update = {updateElements}/>
+         <AddNode cy={props.cy} update = {updateElements}/>
         </div>
             <StyleEditor/>
       </div>
@@ -195,6 +196,8 @@ const App = (props) => {
 const mapStateToProps = state => {
   return{
     graph: state.json,
+    cy: state.cy,
+
   }
   
 }

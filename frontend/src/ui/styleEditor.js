@@ -6,9 +6,7 @@ import {edgeArrowTypes} from '../graph/nodeStyles'
 
 
 const StyleEditor = (props) => {
-    console.log(edgeArrowTypes)
     let edgeArrows = edgeArrowTypes()
-    console.log(edgeArrows)
     let activeEle = props.activeEle
 
  
@@ -74,6 +72,7 @@ const StyleEditor = (props) => {
                            Arrow Type :  
                         </p>
                         <Select
+                            menuPlacement = "top"
                             className = "Select-Inner"
                             options = {edgeArrows}
                             name = 'arrow'
@@ -118,8 +117,8 @@ const StyleEditor = (props) => {
     }else{
         return <div className = "HelpText">
                 <h2>Help: </h2>
-               <p>- Right click to open Context Menu</p>
-               <p>- Left click to select nodes & edges</p>
+                    <p>- Right click to open Context Menu</p>
+                    <p>- Left click to select nodes & edges</p>
                 </div>
     }
 }

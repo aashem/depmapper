@@ -136,12 +136,34 @@ const graph = (newCy, setNotification) => {
       })
 
       //todo refactor all eventhandlers to fix bugs and usability issues 
+      const addMultipleEdges = (nodes, target, compareId) => {
+        nodes.forEach( node => {
+          if(compareId.includes('e' + node.id()+ target.id())){
+            console.log('skipped creating edge ' + node.id() + target.id())
+          }else{
+            cy.add({group:"edges", data:{ id: "e"+ node.data('id')+ target.data('id'), source:node.data('id'), target:target.data('id'), name:`` }})
+          }  
+        })
+      }
+
+      const groupMultipleNodes = (nodes, target) => {
+        nodes.forEach ( node => {
+          node.move({parent : target.id()})
+        })
+      }
+
   
       cy.on('tap', (event) => {
         let evtTarget = event.target;
+        let nodes = cy.filter('node')
+        nodes = nodes.filter(node => node.data('processing') === 'yes')
+       
         if(evtTarget !== cy){
           if(groupingList.length >= 1){
             groupingList[0].move({parent: evtTarget.id()})
+            if(nodes.length > 0){
+              groupMultipleNodes(nodes, evtTarget)
+            }
             groupingList = []
           }
           if(selectedNodes.length === 1){
@@ -149,15 +171,19 @@ const graph = (newCy, setNotification) => {
             selectedNodes.push(evtTarget)  
 
             if(selectedNodes.length > 1){
+              
 
               let compareId = cy.edges().map(e => e.id())
               let edgeId = `${selectedNodes[0].id()}${selectedNodes[1].id()}`
+              if(nodes.length > 0){
+                addMultipleEdges(nodes,evtTarget, compareId)
+              }
 
                 if(compareId.includes("e" + edgeId)){
 
                   window.alert("Connection already exists")
               }else{
-           
+                
                   cy.add({group:"edges", data:{ id: "e"+ selectedNodes[0].id()+selectedNodes[1].id(), source:selectedNodes[0].id(), target:selectedNodes[1].id(), name:`` }}) 
               }
               selectedNodes = []
