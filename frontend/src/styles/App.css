@@ -142,6 +142,7 @@
 */
 
 .Wrapper {
+  width: 100vmax;
   display: grid;
   grid-template-areas:
     "nav buttons panel" 
