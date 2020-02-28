@@ -57,7 +57,8 @@ services:
           - ./proxy/.htpasswd:/etc/nginx/.htpasswd
         depends_on:
           - app
-          - api 
+          - api
+        restart: unless-stopped
      
  
 networks:
