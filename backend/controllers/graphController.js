@@ -38,7 +38,8 @@ graphRouter.get('/:name', async(request,response) => {
     try{
     const result = await Graph.find({ "name" : request.params.name})
     await response.json(result)
-    console.log("GET W/NAME succesful")
+    console.log("GET Graph with name succesful")
+    console.log(result)
     }catch{
         console.log("GET failed")
         response.status(400).end(errorMsg)
@@ -58,6 +59,7 @@ graphRouter.put('/:id', async(request, response) => {
         const result = await Graph.findByIdAndUpdate(request.params.id, graph, {new:true})
         await response.json(result)
         console.log("PUT succesful")
+        console.log(result)
     }catch{
         response.status(400).end(errorMsg)
     }
