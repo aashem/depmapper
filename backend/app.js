@@ -10,10 +10,10 @@ mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useUnifiedTopology', true);
 
-let mongoUri = "mongodb+srv://user_1:asdqwe123@cluster0-neham.mongodb.net/test?retryWrites=true&w=majority"
+let mongo = config.MONGOURI
 
-mongoose.connect(mongoUri, {useNewUrlParser: true})
-console.log(`connected to db at ${mongoUri}`)
+mongoose.connect(mongo, {useNewUrlParser: true})
+console.log(`connected to db at ${mongo}`)
 
 app.use(cors())
 app.use(bodyParser.json())
