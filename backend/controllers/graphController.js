@@ -16,7 +16,7 @@ graphRouter.get('/', async(request, response) => {
 
 graphRouter.post('/', async(request, response) => {
     const body = request.body
-    console.log(body)
+    console.log("Sending POST request")
     const graph = new Graph({
         json: body.json,
         name: body.name,
@@ -28,11 +28,12 @@ graphRouter.post('/', async(request, response) => {
         console.log("POST was succesful")
         response.json(result)
     }
-}catch{
-    console.log("POST failed")
-    response.status(400).end(errorMsg)
+    }catch{
+    response.status(400).end(console.log(errorMsg))
 }
 })
+
+
 
 graphRouter.get('/:name', async(request,response) => {
     try{
@@ -50,18 +51,21 @@ graphRouter.get('/:name', async(request,response) => {
 
 graphRouter.put('/:id', async(request, response) => {
     body = request.body
+    console.log("Sending PUT request")
     let graph = {
         name: body.name,
         json: body.json
     }
 
     try{
+        console.log(request.params.id)
         const result = await Graph.findByIdAndUpdate(request.params.id, graph, {new:true})
         await response.json(result)
         console.log("PUT succesful")
         console.log(result)
     }catch{
         response.status(400).end(errorMsg)
+        console.log("PUT request failed")
     }
 })
 

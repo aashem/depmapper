@@ -10,7 +10,7 @@ mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useUnifiedTopology', true);
 
-let mongoUri = config.MONGOURI
+let mongoUri = "mongodb+srv://user_1:asdqwe123@cluster0-neham.mongodb.net/test?retryWrites=true&w=majority"
 
 mongoose.connect(mongoUri, {useNewUrlParser: true})
 console.log(`connected to db at ${mongoUri}`)
