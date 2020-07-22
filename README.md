@@ -1,6 +1,6 @@
 # depmapper
 
-## Installation for development
+## Installation 
 
 - git clone
 - cd depmapper
@@ -14,8 +14,12 @@
 
 ### development
 
+- run in terminal 'npm install' in both backend and frontend folders
+- create .env file at /backend folder root and write MONGO_URI='insert your mongo database URI HERE'
 - npm run watch @/backend folder to run server in watch mode
+- Go to https://localhost:3001 and accept unsafe connection (Certificates are only valid for the dist version)
 - npm start @/frontend folder to run react development server
+- both frontend and backend have hot code reloading and changes are applied instantly. 
 
 ## Tests
 
