@@ -18,8 +18,10 @@ import {setActiveElement} from './reducers/activeElementReducer'
 import AddNode from './components/addNode'
 import Notification from './ui/notification'
 import {setNotification, clearNotification} from './reducers/notificationReducer'
+import { Input } from '@material-ui/core';
 
 const App = (props) => {
+  let fileReader
   const [cy, setCy] = useState('')
   const [id, setId] = useState('0')
   const [graphNames, setGraphNames] = useState([])
@@ -139,6 +141,27 @@ const App = (props) => {
     }
     updateElements()
   } 
+
+ 
+  const handleFileRead = (e) => {
+    let content = fileReader.result
+    let jsonFromFile = JSON.parse(content)
+    console.log(jsonFromFile)
+    createFromJSON(jsonFromFile)
+  }
+
+  const handleFileChosen = (file) => {
+    fileReader = new FileReader()
+    fileReader.readAsText(file)
+    fileReader.onloadend = () => {
+      handleFileRead()
+    }
+  }
+
+  const createFromJSON = (json) => {
+    cy.json(json)
+
+  }
   
   return (
     
@@ -168,6 +191,8 @@ const App = (props) => {
         <RenameGraph cy = {cy} id = {id} removeGraphId = {props.removeGraphId} setCurrName = {setCurrName} postJson = {props.postJson}/>
       </div>
       <div className= "Panel">
+          <Input type='file' id='file' onChange={e => handleFileChosen(e.target.files[0])}>Upload Json</Input>
+          <Button onClick={createFromJSON}>Upload</Button>
           <SaveGraph cy= {cy} currName = {currName} propsGraph = {props.graph} postJson = {props.postJson} updateJson = {props.updateJson}/>
           <Button onClick = {loadGraph}>load</Button>
         </div> 
