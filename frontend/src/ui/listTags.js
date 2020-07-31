@@ -11,12 +11,18 @@ const ListTags = (props) => {
     const selectTagged = (event) => {
         if(event.data === 'No Tag'){
             cy.nodes().style({visibility: 'visible'})
+            cy.edges().style({visibility: 'visible'})
         }else{
-        cy.nodes().style({visibility: 'visible'})
-        let notTagged = cy.collection(cy.nodes().filter(n => n.data('tag') !== event.data && n.isChildless() === true ))
-        let tagged = cy.collection(cy.nodes().filter(n => n.data('tag') === event.data ))
-        notTagged.style({visibility : 'hidden'})
-        tagged.children().style({visibility: 'visible'})
+            cy.nodes().style({visibility: 'visible'})
+            cy.edges().style({visibility: 'visible'})
+            let notTagged = cy.collection(cy.nodes().filter(n => n.data('tag') !== event.data && n.isChildless() === true ))
+            let tagged = cy.collection(cy.nodes().filter(n => n.data('tag') === event.data ))
+            notTagged.style({visibility : 'hidden'})
+            let subGraphEdgeIds = tagged.map(t => t.edgesTo(tagged).id())
+            let hiddenEdges = cy.edges().filter(e => !subGraphEdgeIds.includes(e.data('id')))
+            hiddenEdges.style({visibility : 'hidden'})
+            tagged.children().style({visibility: 'visible'})
+            console.log(tagged)
             
         }
     }   

@@ -5,13 +5,11 @@ const graph = (newCy, setNotification) => {
     let isGroup = false
     let selectedNodes = []
     let groupingList = []
+    let counter = 1
     if(!newCy){
       cytoscape.use(cxtmenu)
     }
-   
-  
-
-  
+     
       let cy = window.cy = cytoscape({
         container: document.getElementById('cy'),
         autolock: false,
@@ -58,6 +56,15 @@ const graph = (newCy, setNotification) => {
               ele.data('tag', tag)
               cy.resize()
             }
+          },
+          {
+            content:"Remove",
+            select: (ele) => {
+              cy.remove(ele)
+              setNotification(notification = {msg: `Removed ${ele.id()}`, type: "temp"})
+              cy.resize()
+            }
+
           },
           {
             content:"Connect",
@@ -122,7 +129,8 @@ const graph = (newCy, setNotification) => {
           {
           content: "Add Node",
           select: (ele) => {
-            let id = cy.nodes().size()
+            let id = cy.nodes().size() + counter
+            counter = counter + 1
             cy.add({
               data: { id: `${id + 1}` , name: `${id + 1}` },
               position: {
