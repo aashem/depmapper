@@ -4,26 +4,23 @@ import Select from 'react-select'
 
 const ListTags = (props) => {
 
-
+    let filteredTags = []
     let cy = props.cy
     let tags = ''
 
     const selectTagged = (event) => {
         if(event.data === 'No Tag'){
-            cy.nodes().style({visibility: 'visible'})
-            cy.edges().style({visibility: 'visible'})
+            cy.elements().style({visibility: 'visible'})
         }else{
-            cy.nodes().style({visibility: 'visible'})
-            cy.edges().style({visibility: 'visible'})
-            let notTagged = cy.collection(cy.nodes().filter(n => n.data('tag') !== event.data && n.isChildless() === true ))
-            let tagged = cy.collection(cy.nodes().filter(n => n.data('tag') === event.data ))
-            notTagged.style({visibility : 'hidden'})
+            cy.elements().style({visibility: 'visible'})
+            let unTagged = cy.collection(cy.nodes().filter(n => !n.data('tag').includes(event.data) && n.isChildless() === true))
+            let tagged = cy.collection(cy.nodes().filter(n => n.data('tag').includes(event.data)))
             let subGraphEdgeIds = tagged.map(t => t.edgesTo(tagged).id())
             let hiddenEdges = cy.edges().filter(e => !subGraphEdgeIds.includes(e.data('id')))
             hiddenEdges.style({visibility : 'hidden'})
+            unTagged.style({visibility: 'hidden'})
             tagged.children().style({visibility: 'visible'})
-            console.log(tagged)
-            
+        
         }
     }   
 
@@ -33,18 +30,30 @@ const ListTags = (props) => {
         }
         return[...new Set(tags)];
     }
-    if(cy ){
-        tags = cy.nodes().map(n =>  n.data('tag'))
+
+    if(cy){
+        tags = cy.nodes().map(n => n.data('tag'))
+        if(tags){
+            let tagList = tags.flat()
+            tagList.forEach(t => {
+                if (filteredTags.includes(t))
+                return 
+                else filteredTags.push(t)
+                return
+            } )
+        }
     }
     tags = removeDuplicates(tags)
     tags = tags.map(t => t = {label: t , data: t})
+    filteredTags = filteredTags.map(t => t = {label : t, data : t})
     let empty = {label: 'No Tag', data: 'No Tag'}
+    filteredTags.unshift(empty)
     tags.unshift(empty)
  
 
     return(<Select
     placeholder = 'Tags'
-    options = {tags}  
+    options = {filteredTags}  
     onChange = {selectTagged}
     defaultValue = {tags[0]}>
     </Select>)

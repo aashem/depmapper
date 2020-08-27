@@ -52,10 +52,23 @@ const graph = (newCy, setNotification) => {
           {
             content:"Tag",
             select: (ele) => {
-              let tag = window.prompt('Tag name')
-              ele.data('tag', tag)
-              cy.resize()
-            }
+              if(!ele.data('tag')){
+                console.log("No tag creating empty list")
+                let emptyList = []
+                ele.data('tag', emptyList)
+              }
+              let tagList = ele.data('tag')
+              let newTag = window.prompt('Tag name')
+              if (tagList.includes(newTag)){
+                window.alert('Duplicate Tag')
+              }else{
+                tagList.push(newTag)
+                let newTagList = tagList
+                ele.data('tag', newTagList)
+                cy.resize()
+              }
+              }
+     
           },
           {
             content:"Remove",

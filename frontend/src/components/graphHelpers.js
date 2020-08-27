@@ -26,9 +26,7 @@ export const SaveGraph = (props) => {
       }else{
         postJson(graph)
       }
-
-     
-      }
+    }
     }
       return <Button onClick ={saveGraph}>save</Button> 
   }
